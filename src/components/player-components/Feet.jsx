@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Spritesheet from 'react-responsive-spritesheet';
-import runSheet from '../assets/Top_Down_Survivor/feet/run/sheet_run.png';
+import runSheet from '../../assets/Top_Down_Survivor/feet/run/sheet_run.png';
 
-class FeetRun extends Component {
+class Feet extends Component {
     render() {
         return (
             <Spritesheet
@@ -14,10 +14,9 @@ class FeetRun extends Component {
                 fps={30}
                 autoplay={true}
                 loop={true}
-                isResponsive={true}
             />
         );
     }
 }
 
-export default FeetRun;
+export default Feet;

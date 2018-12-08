@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Spritesheet from 'react-responsive-spritesheet';
-import runSheet from '../assets/Top_Down_Survivor/handgun/move/sheet_move_handgun.png';
+import runSheet from '../../assets/Top_Down_Survivor/handgun/move/sheet_move_handgun.png';
 
-class MoveHandgun extends Component {
+class Torso extends Component {
     render() {
         return (
             <Spritesheet
@@ -14,10 +14,9 @@ class MoveHandgun extends Component {
                 fps={30}
                 autoplay={true}
                 loop={true}
-                isResponsive={true}
             />
         );
     }
 }
 
-export default MoveHandgun;
+export default Torso;

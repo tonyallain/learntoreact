@@ -1,14 +1,12 @@
 import React from 'react';
-import FeetRun from './FeetRun';
-import MoveHandgun from './MoveHandgun';
+import Player from './Player';
+import Input from './Input';
 
 const Canvas = () => {
     return (
         <div className='canvas'>
-            <div className='player'>
-                <FeetRun />
-                <MoveHandgun />
-            </div>
+            <Player />
+            <Input />
         </div>
     );
 };
