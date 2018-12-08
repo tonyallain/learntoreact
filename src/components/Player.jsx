@@ -7,17 +7,7 @@ class Player extends Component {
         super(props);
 
         this.state = {
-            isMoving: 1,
-            currentPosition: {
-                x: window.innerWidth / 2,
-                y: window.innerHeight / -2
-            },
-            moveKeys: {
-                up: 'w',
-                down: 's',
-                left: 'q',
-                right: 'e'
-            }
+            isMoving: 1
         };
     }
 
@@ -26,8 +16,8 @@ class Player extends Component {
             <div
                 className='player'
                 style={{
-                    left: this.state.currentPosition.x,
-                    top: -this.state.currentPosition.y
+                    left: this.props.position.x,
+                    top: -this.props.position.y
                 }}
             >
                 <Feet />
