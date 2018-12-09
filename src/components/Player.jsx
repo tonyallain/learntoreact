@@ -21,6 +21,12 @@ import ShotgunMelee from './player-components/shotgun/ShotgunMelee';
 import ShotgunMove from './player-components/shotgun/ShotgunMove';
 import ShotgunReload from './player-components/shotgun/ShotgunReload';
 import ShotgunShoot from './player-components/shotgun/ShotgunShoot';
+// Rifle
+import RifleIdle from './player-components/rifle/RifleIdle';
+import RifleMove from './player-components/rifle/RifleMove';
+import RifleReload from './player-components/rifle/RifleReload';
+import RifleMelee from './player-components/rifle/RifleMelee';
+import RifleShoot from './player-components/rifle/RifleShoot';
 
 class Player extends Component {
     constructor(props) {
@@ -44,7 +50,7 @@ class Player extends Component {
                 }}
             >
                 <FeetMove />
-                <ShotgunShoot />
+                <RifleShoot />
             </div>
         );
     }
