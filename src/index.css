@@ -65,7 +65,7 @@ code {
 .strafing {
   position: fixed;
   left: 15%;
-  top: 35%;
+  top: 33%;
   transform: scale(0.25);
 }
 

@@ -1,8 +1,11 @@
 import React from 'react';
 import Spritesheet from 'react-responsive-spritesheet';
 import sheet from '../../../src/assets/enemies/idle/sheet.png';
+import { getVariance } from '../../utils/helpers';
 
 const ZombieIdle = () => {
+    const variance = getVariance(15, 3);
+
     return (
         <Spritesheet
             className={'zombieIdle'}
@@ -10,7 +13,7 @@ const ZombieIdle = () => {
             widthFrame={241}
             heightFrame={222}
             steps={17}
-            fps={15}
+            fps={variance}
             autoplay={true}
             loop={true}
             isResponsive={true}

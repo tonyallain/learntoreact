@@ -14,6 +14,8 @@ const weapons = [
 ];
 const STRAFE_LEFT = -1;
 const STRAFE_RIGHT = 1;
+const TEST_SPAWN_RATE = 5000;
+const MAX_ZOMBIES = 5;
 
 class Canvas extends Component {
     constructor(props) {
@@ -24,21 +26,31 @@ class Canvas extends Component {
                 x: window.innerWidth / 2,
                 y: window.innerHeight / 2,
                 r: 0
-            },
-            bindings: {
-                w: false,
-                s: false,
-                q: false,
-                e: false
-            },
-            lastMousePos: {
-                x: 0,
-                y: 0
-            },
-            currentWeapon: 3,
-            isMoving: false,
-            strafeDirection: 0
+            }
         };
+
+        this.zombies = [];
+        this.framesSinceLast = 0;
+        this.playerPosition = {
+            x: window.innerWidth / 2,
+            y: window.innerHeight / 2,
+            r: 0
+        };
+        this.isMoving = false;
+        this.strafeDirection = 0;
+        this.bindings = {
+            w: false,
+            s: false,
+            q: false,
+            e: false
+        };
+
+        this.lastMousePos = {
+            x: 0,
+            y: 0
+        };
+
+        this.currentWeapon = 3;
 
         this.onKeyDown.bind(this);
         this.onKeyUp.bind(this);
@@ -50,16 +62,16 @@ class Canvas extends Component {
     onUpdate() {
         let x = 0;
         let y = 0;
-        if (this.state.bindings.w) {
+        if (this.bindings.w) {
             y -= 0.5;
         }
-        if (this.state.bindings.s) {
+        if (this.bindings.s) {
             y += 0.5;
         }
-        if (this.state.bindings.q) {
+        if (this.bindings.q) {
             x -= 0.5;
         }
-        if (this.state.bindings.e) {
+        if (this.bindings.e) {
             x += 0.5;
         }
 
@@ -75,90 +87,77 @@ class Canvas extends Component {
                 x: newX,
                 y: newY
             },
-            { x: this.state.lastMousePos.x, y: this.state.lastMousePos.y }
+            { x: this.lastMousePos.x, y: this.lastMousePos.y }
         );
 
-        let strafeDirection = 0;
+        this.strafeDirection = 0;
         if (newRotation > -45 && newRotation < 45) {
             // facing right
             if (y < 0) {
-                strafeDirection = STRAFE_LEFT;
+                this.strafeDirection = STRAFE_LEFT;
             } else if (y > 0) {
-                strafeDirection = STRAFE_RIGHT;
+                this.strafeDirection = STRAFE_RIGHT;
             }
         } else if (newRotation > 45 && newRotation < 135) {
             // facing down
             if (x < 0) {
-                strafeDirection = STRAFE_RIGHT;
+                this.strafeDirection = STRAFE_RIGHT;
             } else if (x > 0) {
-                strafeDirection = STRAFE_LEFT;
+                this.strafeDirection = STRAFE_LEFT;
             }
         } else if (newRotation > 135 || newRotation < -135) {
             // facing left
             if (y < 0) {
-                strafeDirection = STRAFE_RIGHT;
+                this.strafeDirection = STRAFE_RIGHT;
             } else if (y > 0) {
-                strafeDirection = STRAFE_LEFT;
+                this.strafeDirection = STRAFE_LEFT;
             }
         } else if (newRotation > -135 && newRotation < -45) {
             // facing up
             if (x < 0) {
-                strafeDirection = STRAFE_LEFT;
+                this.strafeDirection = STRAFE_LEFT;
             } else if (x > 0) {
-                strafeDirection = STRAFE_RIGHT;
+                this.strafeDirection = STRAFE_RIGHT;
             }
         }
 
-        // need to stop the player from moving off screen
+        this.isMoving = x !== 0 || y !== 0;
+
         this.setState({
             ...this.state,
             playerPosition: {
                 x: newX,
                 y: newY,
                 r: newRotation
-            },
-            isMoving: x !== 0 || y !== 0,
-            strafeDirection: strafeDirection
+            }
         });
     }
 
     onKeyDown(e) {
         const isNumber = Number(e.key);
 
-        if (this.state.bindings.hasOwnProperty(e.key)) {
+        if (this.bindings.hasOwnProperty(e.key)) {
             e.preventDefault();
-            this.setState({
-                ...this.state,
-                bindings: { ...this.state.bindings, [e.key]: true }
-            });
+            this.bindings = { ...this.bindings, [e.key]: true };
         } else if (isNumber && isNumber < weapons.length && isNumber > 0) {
             e.preventDefault();
-            this.setState({
-                ...this.state,
-                currentWeapon: isNumber
-            });
+            this.currentWeapon = isNumber;
         }
     }
 
     onKeyUp(e) {
-        if (this.state.bindings.hasOwnProperty(e.key)) {
+        if (this.bindings.hasOwnProperty(e.key)) {
             e.preventDefault();
-            this.setState({
-                ...this.state,
-                bindings: { ...this.state.bindings, [e.key]: false }
-            });
+            this.bindings = { ...this.bindings, [e.key]: false };
         }
     }
 
     lookAtCursor(e) {
         e.preventDefault();
-        this.setState({
-            ...this.state,
-            lastMousePos: {
-                x: e.clientX,
-                y: e.clientY
-            }
-        });
+        this.lastMousePos = {
+            x: e.clientX,
+            y: e.clientY
+        };
     }
 
     mouseEvent(e) {
@@ -186,9 +185,25 @@ class Canvas extends Component {
 
         window.addEventListener('contextmenu', e => e.preventDefault());
 
-        setInterval(() => {
+        this.interval = setInterval(() => {
             this.onUpdate();
         }, updateInterval);
+
+        setInterval(() => {
+            if (this.zombies.length < MAX_ZOMBIES) {
+                this.zombies.push(this.zombies.length);
+            }
+        }, TEST_SPAWN_RATE);
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+
+        window.removeEventListener('keydown');
+        window.removeEventListener('keyup');
+        window.removeEventListener('mousemove');
+        window.removeEventListener('mouseup');
+        window.removeEventListener('contextmenu');
     }
 
     render() {
@@ -196,11 +211,19 @@ class Canvas extends Component {
             <div className='canvas'>
                 <Player
                     position={this.state.playerPosition}
-                    weapon={weapons[this.state.currentWeapon]}
-                    isMoving={this.state.isMoving}
-                    strafeDirection={this.state.strafeDirection}
+                    weapon={weapons[this.currentWeapon]}
+                    isMoving={this.isMoving}
+                    strafeDirection={this.strafeDirection}
                 />
-                <Zombie playerPosition={this.state.playerPosition} />
+                {this.zombies.map(i => {
+                    return (
+                        <div key={i}>
+                            <Zombie
+                                playerPosition={this.state.playerPosition}
+                            />
+                        </div>
+                    );
+                })}
             </div>
         );
     }

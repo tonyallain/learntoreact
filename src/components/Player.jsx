@@ -56,7 +56,7 @@ class Player extends Component {
                 }
             case 'handgun':
                 if (this.props.isMoving) {
-                    return <HandgunMove />;
+                    return <HandgunMove position={this.props.position} />;
                 } else {
                     return <HandgunIdle />;
                 }
