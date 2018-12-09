@@ -27,6 +27,10 @@ import RifleMove from './player-components/rifle/RifleMove';
 import RifleReload from './player-components/rifle/RifleReload';
 import RifleMelee from './player-components/rifle/RifleMelee';
 import RifleShoot from './player-components/rifle/RifleShoot';
+// Flashlight
+import FlashlightMove from './player-components/flashlight/FlashlightMove';
+import FlashlightIdle from './player-components/flashlight/FlashlightIdle';
+import FlashlightMelee from './player-components/flashlight/FlashlightMelee';
 
 class Player extends Component {
     constructor(props) {
@@ -50,7 +54,7 @@ class Player extends Component {
                 }}
             >
                 <FeetMove />
-                <RifleShoot />
+                <FlashlightMelee />
             </div>
         );
     }

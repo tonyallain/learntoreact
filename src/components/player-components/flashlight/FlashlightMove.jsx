@@ -1,14 +1,14 @@
 import React from 'react';
 import Spritesheet from 'react-responsive-spritesheet';
-import sheet from '../../../assets/Top_Down_Survivor/knife/move/sheet.png';
+import sheet from '../../../assets/Top_Down_Survivor/flashlight/move/sheet.png';
 
-const KnifeMove = () => {
+const FlashlightMove = () => {
     return (
         <Spritesheet
             className={'centerOfParent'}
             image={sheet}
-            widthFrame={279}
-            heightFrame={219}
+            widthFrame={305}
+            heightFrame={231}
             steps={20}
             fps={30}
             autoplay={true}
@@ -18,4 +18,4 @@ const KnifeMove = () => {
     );
 };
 
-export default KnifeMove;
+export default FlashlightMove;

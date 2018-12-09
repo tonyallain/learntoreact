@@ -41,6 +41,13 @@ code {
   transform: translate(-55%, -55%);
 }
 
+.flashlightAttack {
+  position: fixed;
+  left: 65%;
+  top: 100%;
+  transform: translate(-55%, -65%);
+}
+
 .player {
   width: 256px;
   height: 256px;
