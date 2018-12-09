@@ -1,6 +1,24 @@
 import React, { Component } from 'react';
-import Feet from './player-components/Feet';
-import Torso from './player-components/Torso';
+// Feet
+import FeetMove from './player-components/feet/FeetMove';
+import FeetIdle from './player-components/feet/FeetIdle';
+import FeetWalk from './player-components/feet/FeetWalk';
+import FeetStrafeLeft from './player-components/feet/FeetStrafeLeft';
+import FeetStrafeRight from './player-components/feet/FeetStrafeRight';
+// Handgun
+import HandgunMove from './player-components/handgun/HandgunMove';
+import HandgunMelee from './player-components/handgun/HandgunMelee';
+import HandgunReload from './player-components/handgun/HandgunReload';
+import HandgunShoot from './player-components/handgun/HandgunShoot';
+import HandgunIdle from './player-components/handgun/HandgunIdle';
+// Knife
+import KnifeIdle from './player-components/knife/KnifeIdle';
+import KnifeMove from './player-components/knife/KnifeMove';
+import KnifeMelee from './player-components/knife/KnifeMelee';
+// Shotgun
+import ShotgunIdle from './player-components/shotgun/ShotgunIdle';
+import ShotgunMelee from './player-components/shotgun/ShotgunMelee';
+import ShotgunMove from './player-components/shotgun/ShotgunMove';
 
 class Player extends Component {
     constructor(props) {
@@ -23,8 +41,8 @@ class Player extends Component {
                     }deg) translate(-50%, -50%)`
                 }}
             >
-                <Feet />
-                <Torso />
+                <FeetMove />
+                <ShotgunMove />
             </div>
         );
     }

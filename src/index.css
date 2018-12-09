@@ -30,8 +30,15 @@ code {
 .centerOfParent {
   position: fixed;
   left: 50%;
-  top: 50%;
+  top: 75%;
   transform: translate(-50%, -50%);
+}
+
+.knifeAttack {
+  position: fixed;
+  left: 65%;
+  top: 100%;
+  transform: translate(-55%, -55%);
 }
 
 .player {
