@@ -2,11 +2,18 @@ import React, { Component } from 'react';
 import Player from './Player';
 import { diagonalRatio, updateInterval } from '../utils/constants';
 import { angle } from '../utils/vector';
+import Zombie from './Zombie';
 
-const weapons = ['flashlight', 'knife', 'handgun', 'shotgun', 'rifle'];
+const weapons = [
+    'INVENTORY',
+    'flashlight',
+    'knife',
+    'handgun',
+    'shotgun',
+    'rifle'
+];
 const STRAFE_LEFT = -1;
 const STRAFE_RIGHT = 1;
-let updating = false;
 
 class Canvas extends Component {
     constructor(props) {
@@ -16,7 +23,7 @@ class Canvas extends Component {
             playerPosition: {
                 x: window.innerWidth / 2,
                 y: window.innerHeight / 2,
-                r: 1
+                r: 0
             },
             bindings: {
                 w: false,
@@ -28,7 +35,7 @@ class Canvas extends Component {
                 x: 0,
                 y: 0
             },
-            currentWeapon: 4,
+            currentWeapon: 3,
             isMoving: false,
             strafeDirection: 0
         };
@@ -37,6 +44,7 @@ class Canvas extends Component {
         this.onKeyUp.bind(this);
         this.lookAtCursor.bind(this);
         this.onUpdate.bind(this);
+        this.mouseEvent.bind(this);
     }
 
     onUpdate() {
@@ -101,87 +109,82 @@ class Canvas extends Component {
             }
         }
 
-        if (!updating) {
-            updating = true;
-            this.setState(
-                {
-                    ...this.state,
-                    playerPosition: {
-                        x: newX,
-                        y: newY,
-                        r: newRotation
-                    },
-                    isMoving: x !== 0 || y !== 0,
-                    strafeDirection: strafeDirection
-                },
-                () => {
-                    updating = false;
-                }
-            );
-        }
+        this.setState({
+            ...this.state,
+            playerPosition: {
+                x: newX,
+                y: newY,
+                r: newRotation
+            },
+            isMoving: x !== 0 || y !== 0,
+            strafeDirection: strafeDirection
+        });
     }
 
     onKeyDown(e) {
-        if (this.state.bindings.hasOwnProperty(e.key) && !updating) {
+        const isNumber = Number(e.key);
+
+        if (this.state.bindings.hasOwnProperty(e.key)) {
             e.preventDefault();
-            updating = true;
-            this.setState(
-                {
-                    ...this.state,
-                    bindings: { ...this.state.bindings, [e.key]: true }
-                },
-                () => {
-                    updating = false;
-                }
-            );
+            this.setState({
+                ...this.state,
+                bindings: { ...this.state.bindings, [e.key]: true }
+            });
+        } else if (isNumber && isNumber < weapons.length && isNumber > 0) {
+            e.preventDefault();
+            this.setState({
+                ...this.state,
+                currentWeapon: isNumber
+            });
         }
     }
 
     onKeyUp(e) {
-        if (this.state.bindings.hasOwnProperty(e.key) && !updating) {
+        if (this.state.bindings.hasOwnProperty(e.key)) {
             e.preventDefault();
-            updating = true;
-            this.setState(
-                {
-                    ...this.state,
-                    bindings: { ...this.state.bindings, [e.key]: false }
-                },
-                () => {
-                    updating = false;
-                }
-            );
+            this.setState({
+                ...this.state,
+                bindings: { ...this.state.bindings, [e.key]: false }
+            });
         }
     }
 
     lookAtCursor(e) {
-        if (!updating) {
-            e.preventDefault();
-            updating = true;
-            this.setState(
-                {
-                    ...this.state,
-                    lastMousePos: {
-                        x: e.clientX,
-                        y: e.clientY
-                    }
-                },
-                () => {
-                    updating = false;
-                }
-            );
-        }
+        e.preventDefault();
+        this.setState({
+            ...this.state,
+            lastMousePos: {
+                x: e.clientX,
+                y: e.clientY
+            }
+        });
+    }
+
+    mouseEvent(e) {
+        e.preventDefault();
+        console.log(e);
+        // try to trigger an anim swap to an attack
     }
 
     componentDidMount() {
         window.addEventListener('keydown', e => {
             this.onKeyDown(e);
         });
+
         window.addEventListener('keyup', e => {
             this.onKeyUp(e);
         });
+
         window.addEventListener('mousemove', e => {
             this.lookAtCursor(e);
         });
+
+        window.addEventListener('mouseup', e => {
+            this.mouseEvent(e);
+        });
+
+        window.addEventListener('contextmenu', e => e.preventDefault());
+
         setInterval(() => {
             this.onUpdate();
         }, updateInterval);
@@ -196,6 +199,7 @@ class Canvas extends Component {
                     isMoving={this.state.isMoving}
                     strafeDirection={this.state.strafeDirection}
                 />
+                <Zombie playerPosition={this.state.playerPosition} />
             </div>
         );
     }

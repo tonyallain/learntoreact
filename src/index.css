@@ -41,6 +41,27 @@ code {
   transform: scale(0.25);
 }
 
+.zombieIdle {
+  position: fixed;
+  left: 7%;
+  top: 30%;
+  transform: scale(0.25);
+}
+
+.zombieMove {
+  position: fixed;
+  left: -2%;
+  top: 22%;
+  transform: scale(0.25);
+}
+
+.zombieAttack {
+  position: fixed;
+  left: -9%;
+  top: 24%;
+  transform: scale(0.25);
+}
+
 .strafing {
   position: fixed;
   left: 15%;

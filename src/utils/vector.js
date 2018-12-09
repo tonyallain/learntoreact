@@ -14,3 +14,7 @@ export function angle(A, B) {
 
     return angleBetween;
 }
+
+export function slope(A, B) {
+    return { rise: B.y - A.y, run: B.x - A.x };
+}
