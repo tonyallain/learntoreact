@@ -109,6 +109,7 @@ class Canvas extends Component {
             }
         }
 
+        // need to stop the player from moving off screen
         this.setState({
             ...this.state,
             playerPosition: {
