@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Player from './Player';
 import { diagonalRatio, updateInterval } from '../utils/constants';
+import { angle } from '../utils/vector';
 
 class Canvas extends Component {
     constructor(props) {
@@ -10,13 +11,17 @@ class Canvas extends Component {
             playerPosition: {
                 x: window.innerWidth / 2,
                 y: window.innerHeight / 2,
-                r: 15
+                r: 1
             },
             bindings: {
                 w: false,
                 s: false,
                 q: false,
                 e: false
+            },
+            lastMousePos: {
+                x: 0,
+                y: 0
             }
         };
 
@@ -47,12 +52,22 @@ class Canvas extends Component {
             y *= diagonalRatio;
         }
 
+        const newX = this.state.playerPosition.x + x;
+        const newY = this.state.playerPosition.y + y;
+        const newRotation = angle(
+            {
+                x: newX,
+                y: newY
+            },
+            { x: this.state.lastMousePos.x, y: this.state.lastMousePos.y }
+        );
+
         this.setState({
             ...this.state,
             playerPosition: {
-                x: this.state.playerPosition.x + x,
-                y: this.state.playerPosition.y + y,
-                r: this.state.playerPosition.r
+                x: newX,
+                y: newY,
+                r: newRotation
             }
         });
     }
@@ -79,7 +94,13 @@ class Canvas extends Component {
 
     lookAtCursor(e) {
         e.preventDefault();
-        // console.log(e);
+        this.setState({
+            ...this.state,
+            lastMousePos: {
+                x: e.clientX,
+                y: e.clientY
+            }
+        });
     }
 
     componentDidMount() {
