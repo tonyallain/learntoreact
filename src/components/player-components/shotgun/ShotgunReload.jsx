@@ -7,9 +7,9 @@ const ShotgunReload = () => {
         <Spritesheet
             className={'centerOfParent'}
             image={sheet}
-            widthFrame={260}
-            heightFrame={230}
-            steps={15}
+            widthFrame={322}
+            heightFrame={217}
+            steps={20}
             fps={30}
             autoplay={true}
             loop={true}

@@ -19,6 +19,8 @@ import KnifeMelee from './player-components/knife/KnifeMelee';
 import ShotgunIdle from './player-components/shotgun/ShotgunIdle';
 import ShotgunMelee from './player-components/shotgun/ShotgunMelee';
 import ShotgunMove from './player-components/shotgun/ShotgunMove';
+import ShotgunReload from './player-components/shotgun/ShotgunReload';
+import ShotgunShoot from './player-components/shotgun/ShotgunShoot';
 
 class Player extends Component {
     constructor(props) {
@@ -42,7 +44,7 @@ class Player extends Component {
                 }}
             >
                 <FeetMove />
-                <ShotgunMove />
+                <ShotgunShoot />
             </div>
         );
     }

@@ -7,8 +7,8 @@ const ShotgunShoot = () => {
         <Spritesheet
             className={'centerOfParent'}
             image={sheet}
-            widthFrame={255}
-            heightFrame={215}
+            widthFrame={312}
+            heightFrame={206}
             steps={3}
             fps={15}
             autoplay={true}
