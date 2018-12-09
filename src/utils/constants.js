@@ -1,2 +1,3 @@
 export const diagonalRatio = 1 - 0.0857864376269049511983112757903;
-export const updateInterval = 1;
+export const updateInterval = 10;
+export const zombieUpdateRate = 50;

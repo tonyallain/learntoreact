@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { updateInterval } from '../utils/constants';
+import { zombieUpdateRate } from '../utils/constants';
 import { angle, distance, slope } from '../utils/vector';
 import ZombieIdle from './zombie-components/ZombieIdle';
 import ZombieMove from './zombie-components/ZombieMove';
@@ -96,7 +96,7 @@ class Zombie extends Component {
         }
 
         if (this.currentTravelTime > 0) {
-            this.currentTravelTime -= updateInterval;
+            this.currentTravelTime -= zombieUpdateRate;
 
             const A = { x: this.state.position.x, y: this.state.position.y };
             const B = this.destination;
@@ -136,7 +136,7 @@ class Zombie extends Component {
 
         setInterval(() => {
             this.moveToDest();
-        }, updateInterval * 50);
+        }, zombieUpdateRate);
     }
 
     zombieAnim() {

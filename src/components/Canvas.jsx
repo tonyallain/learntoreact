@@ -187,7 +187,7 @@ class Canvas extends Component {
 
         this.interval = setInterval(() => {
             this.onUpdate();
-        }, updateInterval);
+        }, 0);
 
         setInterval(() => {
             if (this.zombies.length < MAX_ZOMBIES) {

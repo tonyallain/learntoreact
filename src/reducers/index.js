@@ -1,9 +1,4 @@
-const initialState = {
-    message: `some redux integration stuff`
-};
+import { combineReducers } from 'redux';
+import playerReducer from './playerReducer';
 
-function reducer(state = initialState) {
-    return state;
-}
-
-export default reducer;
+export default combineReducers({ player: playerReducer });
