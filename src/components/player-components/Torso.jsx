@@ -14,6 +14,7 @@ class Torso extends Component {
                 fps={30}
                 autoplay={true}
                 loop={true}
+                isResponsive={true}
             />
         );
     }

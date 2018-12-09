@@ -17,7 +17,10 @@ class Player extends Component {
                 className='player'
                 style={{
                     left: this.props.position.x,
-                    top: -this.props.position.y
+                    top: this.props.position.y,
+                    transform: `rotate(${
+                        this.props.position.r
+                    }deg) translate(-50%, -50%)`
                 }}
             >
                 <Feet />
