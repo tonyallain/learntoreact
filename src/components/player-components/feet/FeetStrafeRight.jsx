@@ -5,7 +5,7 @@ import sheet from '../../../assets/Top_Down_Survivor/feet/strafe_right/sheet.png
 const FeetStrafeRight = () => {
     return (
         <Spritesheet
-            className={'centerOfParent'}
+            className={'strafing'}
             image={sheet}
             widthFrame={154}
             heightFrame={176}

@@ -5,7 +5,7 @@ import sheet from '../../../assets/Top_Down_Survivor/feet/idle/sheet.png';
 const FeetIdle = () => {
     return (
         <Spritesheet
-            className={'centerOfParent'}
+            className={'idleFeet'}
             image={sheet}
             widthFrame={132}
             heightFrame={155}

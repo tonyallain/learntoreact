@@ -5,7 +5,7 @@ import sheet from '../../../assets/Top_Down_Survivor/flashlight/idle/sheet.png';
 const FlashlightIdle = () => {
     return (
         <Spritesheet
-            className={'centerOfParent'}
+            className={'flashlightMove'}
             image={sheet}
             widthFrame={303}
             heightFrame={223}

@@ -29,23 +29,72 @@ code {
 
 .centerOfParent {
   position: fixed;
-  left: 50%;
-  top: 75%;
-  transform: translate(-50%, -50%);
+  left: 5%;
+  top: 35%;
+  transform: scale(0.25);
+}
+
+.idleFeet {
+  position: fixed;
+  left: 20%;
+  top: 35%;
+  transform: scale(0.25);
+}
+
+.strafing {
+  position: fixed;
+  left: 15%;
+  top: 35%;
+  transform: scale(0.25);
+}
+
+.knife {
+  position: fixed;
+  left: -10%;
+  top: 25%;
+  transform: scale(0.25);
+}
+
+.handgun {
+  position: fixed;
+  left: -2%;
+  top: 27%;
+  transform: scale(0.25);
+}
+
+.shotgun {
+  position: fixed;
+  left: -10%;
+  top: 27%;
+  transform: scale(0.25);
+}
+
+.rifle {
+  position: fixed;
+  left: -10%;
+  top: 27%;
+  transform: scale(0.25);
 }
 
 .knifeAttack {
   position: fixed;
-  left: 65%;
+  left: 15%;
   top: 100%;
-  transform: translate(-55%, -55%);
+  transform: scale(0.25);
+}
+
+.flashlightMove {
+  position: fixed;
+  left: -10%;
+  top: 25%;
+  transform: scale(0.25);
 }
 
 .flashlightAttack {
   position: fixed;
   left: 65%;
   top: 100%;
-  transform: translate(-55%, -65%);
+  transform: scale(0.25);
 }
 
 .player {

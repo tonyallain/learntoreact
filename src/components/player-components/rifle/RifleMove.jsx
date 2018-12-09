@@ -5,7 +5,7 @@ import sheet from '../../../assets/Top_Down_Survivor/rifle/move/sheet.png';
 const RifleMove = () => {
     return (
         <Spritesheet
-            className={'centerOfParent'}
+            className={'rifle'}
             image={sheet}
             widthFrame={313}
             heightFrame={206}

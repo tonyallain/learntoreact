@@ -5,7 +5,7 @@ import sheet from '../../../assets/Top_Down_Survivor/knife/idle/sheet.png';
 const KnifeIdle = () => {
     return (
         <Spritesheet
-            className={'centerOfParent'}
+            className={'knife'}
             image={sheet}
             widthFrame={289}
             heightFrame={224}

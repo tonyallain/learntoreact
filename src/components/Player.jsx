@@ -36,9 +36,62 @@ class Player extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            isMoving: 1
-        };
+        this.pickWeapon.bind(this);
+        this.pickFeet.bind(this);
+    }
+
+    pickWeapon() {
+        switch (this.props.weapon) {
+            case 'flashlight':
+                if (this.props.isMoving) {
+                    return <FlashlightMove />;
+                } else {
+                    return <FlashlightIdle />;
+                }
+            case 'knife':
+                if (this.props.isMoving) {
+                    return <KnifeMove />;
+                } else {
+                    return <KnifeIdle />;
+                }
+            case 'handgun':
+                if (this.props.isMoving) {
+                    return <HandgunMove />;
+                } else {
+                    return <HandgunIdle />;
+                }
+            case 'shotgun':
+                if (this.props.isMoving) {
+                    return <ShotgunMove />;
+                } else {
+                    return <ShotgunIdle />;
+                }
+            case 'rifle':
+                if (this.props.isMoving) {
+                    return <RifleMove />;
+                } else {
+                    return <RifleIdle />;
+                }
+            default:
+                return <div />;
+        }
+    }
+
+    pickFeet() {
+        if (this.props.isMoving) {
+            switch (this.props.strafeDirection) {
+                case 0:
+                    return <FeetMove />;
+                case 1:
+                    return <FeetStrafeRight />;
+                case -1:
+                    return <FeetStrafeLeft />;
+                default:
+                    return <div />;
+            }
+        } else {
+            return <FeetIdle />;
+        }
     }
 
     render() {
@@ -53,8 +106,8 @@ class Player extends Component {
                     }deg) translate(-50%, -50%)`
                 }}
             >
-                <FeetMove />
-                <FlashlightMelee />
+                {this.pickFeet()}
+                {this.pickWeapon()}
             </div>
         );
     }

@@ -5,7 +5,7 @@ import sheet from '../../../assets/Top_Down_Survivor/flashlight/move/sheet.png';
 const FlashlightMove = () => {
     return (
         <Spritesheet
-            className={'centerOfParent'}
+            className={'flashlightMove'}
             image={sheet}
             widthFrame={305}
             heightFrame={231}
