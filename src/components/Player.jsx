@@ -38,6 +38,7 @@ class Player extends Component {
 
         this.pickWeapon.bind(this);
         this.pickFeet.bind(this);
+        this.renderBody.bind(this);
     }
 
     pickWeapon() {
@@ -94,6 +95,15 @@ class Player extends Component {
         }
     }
 
+    renderBody() {
+        return (
+            <div>
+                {this.pickFeet()}
+                {this.pickWeapon()}
+            </div>
+        );
+    }
+
     render() {
         return (
             <div
@@ -106,8 +116,7 @@ class Player extends Component {
                     }deg) translate(-50%, -50%)`
                 }}
             >
-                {this.pickFeet()}
-                {this.pickWeapon()}
+                {this.renderBody()}
             </div>
         );
     }
