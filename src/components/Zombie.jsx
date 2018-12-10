@@ -48,7 +48,7 @@ class Zombie extends Component {
             }
         };
 
-        this.currentAnim = { ...this.anims.idle };
+        this.currentAnim = this.anims.idle;
 
         this.currentIdleTime = Math.random() * idleTime;
         this.currentRealizationTime = Math.random() * realizationMax;
@@ -178,14 +178,22 @@ class Zombie extends Component {
         this.props.gameloop.unsubscribe(this.id);
     }
 
+    getInstance(instance) {
+        // console.log(instance.getInfo('isPaused'));
+        this.spriteInstance = instance;
+    }
+
     zombieAnim() {
+        if (this.spriteInstance) {
+            //this.spriteInstance.pause();
+        }
         if (this.distFromPlayer < aggroRadius) {
-            this.currentAnim = { ...this.anims.attack };
+            this.currentAnim = this.anims.attack;
         } else {
             if (this.currentTravelTime > 0 && this.distFromDest > aggroRadius) {
-                this.currentAnim = { ...this.anims.move };
+                this.currentAnim = this.anims.move;
             } else {
-                this.currentAnim = { ...this.anims.idle };
+                this.currentAnim = this.anims.idle;
             }
         }
 
@@ -200,6 +208,9 @@ class Zombie extends Component {
                 autoplay={true}
                 loop={true}
                 gameloop={this.props.gameloop}
+                getInstance={instance => {
+                    this.getInstance(instance);
+                }}
             />
         );
     }

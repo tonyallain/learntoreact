@@ -40,11 +40,13 @@ class Spritesheet extends Component {
         this.init();
         if (this.props.gameloop) {
             this.gameloopId = this.props.gameloop.subscribe(dt => {
-                if (this.isPlaying) {
+                if (this.getInfo('isPlaying')) {
                     this.timer += dt;
                     if (this.timer > 1000 / this.props.fps) {
-                        this.moveImage();
-                        this.timer = 0;
+                        if (this.spriteElMove) {
+                            this.moveImage();
+                            this.timer = 0;
+                        }
                     }
                 }
             });
@@ -142,7 +144,7 @@ class Spritesheet extends Component {
         const { image, autoplay, getInstance, onInit } = this.props;
 
         let imgLoadSprite = new Image();
-        imgLoadSprite.src = image;
+        imgLoadSprite.src = this.props.image;
         imgLoadSprite.onload = () => {
             if (document && document.querySelector(`.${this.id}`)) {
                 this.imageSprite = imgLoadSprite;
@@ -224,7 +226,8 @@ class Spritesheet extends Component {
         const { onEnterFrame, onEachFrame, loop, onLoopComplete } = this.props;
 
         let currentRow = Math.floor(this.frame / this.cols);
-        let currentCol = this.frame - this.cols * currentRow;
+        let currentCol = Math.floor(this.frame - this.cols * currentRow);
+        console.log(currentCol, currentRow);
         this.spriteElMove.style.backgroundPosition = `-${this.props.widthFrame *
             currentCol}px -${this.props.heightFrame * currentRow}px`;
 
