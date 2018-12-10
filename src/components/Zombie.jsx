@@ -28,7 +28,7 @@ class Zombie extends Component {
             idle: {
                 className: 'zombieIdle',
                 image: idleSheet,
-                widthFrame: 241,
+                widthFrame: 240,
                 heightFrame: 222,
                 steps: 17
             },
@@ -76,6 +76,11 @@ class Zombie extends Component {
         this.moveToDest.bind(this);
         this.updateDest.bind(this);
         this.zombieAnim.bind(this);
+        this.getInstance.bind(this);
+    }
+
+    getInstance(spriteSheet) {
+        console.log(spriteSheet.getInfo('isPlaying'));
     }
 
     zombieAI() {
@@ -200,6 +205,7 @@ class Zombie extends Component {
                 autoplay={true}
                 loop={true}
                 gameloop={this.props.gameloop}
+                getInstance={this.getInstance}
             />
         );
     }
