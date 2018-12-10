@@ -16,6 +16,8 @@ const STRAFE_LEFT = -1;
 const STRAFE_RIGHT = 1;
 const TEST_SPAWN_RATE = 5000;
 const MAX_ZOMBIES = 5;
+const MAP_PADDING = 25;
+const PLAYER_MOVESPEED = 1;
 
 class Canvas extends Component {
     constructor(props) {
@@ -63,16 +65,16 @@ class Canvas extends Component {
         let x = 0;
         let y = 0;
         if (this.bindings.w) {
-            y -= 0.5;
+            y -= PLAYER_MOVESPEED;
         }
         if (this.bindings.s) {
-            y += 0.5;
+            y += PLAYER_MOVESPEED;
         }
         if (this.bindings.q) {
-            x -= 0.5;
+            x -= PLAYER_MOVESPEED;
         }
         if (this.bindings.e) {
-            x += 0.5;
+            x += PLAYER_MOVESPEED;
         }
 
         if (x !== 0 && y !== 0) {
@@ -80,8 +82,8 @@ class Canvas extends Component {
             y *= diagonalRatio;
         }
 
-        const newX = this.state.playerPosition.x + x;
-        const newY = this.state.playerPosition.y + y;
+        let newX = this.state.playerPosition.x + x;
+        let newY = this.state.playerPosition.y + y;
         const newRotation = angle(
             {
                 x: newX,
@@ -91,28 +93,28 @@ class Canvas extends Component {
         );
 
         this.strafeDirection = 0;
-        if (newRotation > -45 && newRotation < 45) {
+        if (newRotation >= -45 && newRotation < 45) {
             // facing right
             if (y < 0) {
                 this.strafeDirection = STRAFE_LEFT;
             } else if (y > 0) {
                 this.strafeDirection = STRAFE_RIGHT;
             }
-        } else if (newRotation > 45 && newRotation < 135) {
+        } else if (newRotation >= 45 && newRotation < 135) {
             // facing down
             if (x < 0) {
                 this.strafeDirection = STRAFE_RIGHT;
             } else if (x > 0) {
                 this.strafeDirection = STRAFE_LEFT;
             }
-        } else if (newRotation > 135 || newRotation < -135) {
+        } else if (newRotation >= 135 || newRotation < -135) {
             // facing left
             if (y < 0) {
                 this.strafeDirection = STRAFE_RIGHT;
             } else if (y > 0) {
                 this.strafeDirection = STRAFE_LEFT;
             }
-        } else if (newRotation > -135 && newRotation < -45) {
+        } else if (newRotation >= -135 && newRotation < -45) {
             // facing up
             if (x < 0) {
                 this.strafeDirection = STRAFE_LEFT;
@@ -122,6 +124,18 @@ class Canvas extends Component {
         }
 
         this.isMoving = x !== 0 || y !== 0;
+
+        if (newX < MAP_PADDING) {
+            newX = MAP_PADDING;
+        } else if (newX > window.innerWidth - MAP_PADDING) {
+            newX = window.innerWidth - MAP_PADDING;
+        }
+
+        if (newY < MAP_PADDING) {
+            newY = MAP_PADDING;
+        } else if (newY > window.innerHeight - MAP_PADDING) {
+            newY = window.innerHeight - MAP_PADDING;
+        }
 
         this.setState({
             ...this.state,
@@ -187,7 +201,7 @@ class Canvas extends Component {
 
         this.interval = setInterval(() => {
             this.onUpdate();
-        }, 0);
+        }, updateInterval);
 
         setInterval(() => {
             if (this.zombies.length < MAX_ZOMBIES) {
