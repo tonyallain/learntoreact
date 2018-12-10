@@ -1,6 +1,7 @@
 const initialState = {
     position: [window.innerWidth / 2, window.innerHeight / 2],
-    rotation: 0
+    rotation: 0,
+    keyDown: {}
 };
 
 const playerReducer = (state = initialState, action) => {
