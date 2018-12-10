@@ -1,5 +1,5 @@
 import React from 'react';
-import Spritesheet from 'react-responsive-spritesheet';
+import Spritesheet from '../../../utils/Spritesheet';
 import sheet from '../../../assets/Top_Down_Survivor/flashlight/meleeattack/sheet.png';
 
 const FlashlightMelee = () => {

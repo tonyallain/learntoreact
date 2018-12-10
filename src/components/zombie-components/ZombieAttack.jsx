@@ -1,5 +1,5 @@
 import React from 'react';
-import Spritesheet from 'react-responsive-spritesheet';
+import Spritesheet from '../../utils/Spritesheet';
 import sheet from '../../../src/assets/enemies/attack/sheet.png';
 import { getVariance } from '../../utils/helpers';
 

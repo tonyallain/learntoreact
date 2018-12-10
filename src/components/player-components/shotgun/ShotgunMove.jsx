@@ -1,5 +1,5 @@
 import React from 'react';
-import Spritesheet from 'react-responsive-spritesheet';
+import Spritesheet from '../../../utils/Spritesheet';
 import sheet from '../../../assets/Top_Down_Survivor/shotgun/move/sheet.png';
 
 const ShotgunMove = () => {

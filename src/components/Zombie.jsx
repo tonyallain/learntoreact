@@ -1,21 +1,54 @@
 import React, { Component } from 'react';
-import { zombieUpdateRate } from '../utils/constants';
 import { angle, distance, slope } from '../utils/vector';
 import ZombieIdle from './zombie-components/ZombieIdle';
 import ZombieMove from './zombie-components/ZombieMove';
 import ZombieAttack from './zombie-components/ZombieAttack';
 import { spawnPosition } from '../utils/helpers';
+import Spritesheet from '../utils/Spritesheet';
+import attackSheet from '../../src/assets/enemies/attack/sheet.png';
+import moveSheet from '../../src/assets/enemies/move/sheet.png';
+import idleSheet from '../../src/assets/enemies/idle/sheet.png';
+import { getVariance } from '../utils/helpers';
 
 const realizationMax = 5000;
 const idleTime = 10000;
 const travelTime = 3000;
 const aggroRadius = 40;
+const maxMovespeed = 10;
 
 class Zombie extends Component {
     constructor(props) {
         super(props);
 
         let spawnLoc = spawnPosition();
+        this.fps = getVariance(15, 2);
+        this.movespeed = maxMovespeed + Math.random() * maxMovespeed;
+
+        this.anims = {
+            idle: {
+                className: 'zombieIdle',
+                image: idleSheet,
+                widthFrame: 241,
+                heightFrame: 222,
+                steps: 17
+            },
+            move: {
+                className: 'zombieMove',
+                image: moveSheet,
+                widthFrame: 288,
+                heightFrame: 311,
+                steps: 17
+            },
+            attack: {
+                className: 'zombieAttack',
+                image: attackSheet,
+                widthFrame: 318,
+                heightFrame: 294,
+                steps: 9
+            }
+        };
+
+        this.currentAnim = { ...this.anims.idle };
 
         this.currentIdleTime = Math.random() * idleTime;
         this.currentRealizationTime = Math.random() * realizationMax;
@@ -77,7 +110,7 @@ class Zombie extends Component {
         }, this.currentRealizationTime);
     }
 
-    moveToDest() {
+    moveToDest(deltaTime) {
         this.distFromPlayer = distance(
             { x: this.state.position.x, y: this.state.position.y },
             this.props.playerPosition
@@ -96,7 +129,7 @@ class Zombie extends Component {
         }
 
         if (this.currentTravelTime > 0) {
-            this.currentTravelTime -= zombieUpdateRate;
+            this.currentTravelTime -= deltaTime;
 
             const A = { x: this.state.position.x, y: this.state.position.y };
             const B = this.destination;
@@ -105,8 +138,10 @@ class Zombie extends Component {
             // this is my current angle
             const angleBetween = angle(A, B);
             const travelFactor = slope(A, B);
-            const width = travelFactor.run > 0 ? 1 : -1;
-            const height = travelFactor.rise > 0 ? 1 : -1;
+            const width =
+                travelFactor.run * (deltaTime / 1000 / this.movespeed);
+            const height =
+                travelFactor.rise * (deltaTime / 1000 / this.movespeed);
 
             if (
                 this.distFromDest > aggroRadius &&
@@ -134,21 +169,39 @@ class Zombie extends Component {
             this.updateDest();
         }, this.currentRealizationTime);
 
-        setInterval(() => {
-            this.moveToDest();
-        }, zombieUpdateRate);
+        this.id = this.props.gameloop.subscribe(dt => {
+            this.moveToDest(dt);
+        });
+    }
+
+    componentWillUnmount() {
+        this.props.gameloop.unsubscribe(this.id);
     }
 
     zombieAnim() {
         if (this.distFromPlayer < aggroRadius) {
-            return <ZombieAttack />;
+            this.currentAnim = { ...this.anims.attack };
         } else {
             if (this.currentTravelTime > 0 && this.distFromDest > aggroRadius) {
-                return <ZombieMove />;
+                this.currentAnim = { ...this.anims.move };
             } else {
-                return <ZombieIdle />;
+                this.currentAnim = { ...this.anims.idle };
             }
         }
+
+        return (
+            <Spritesheet
+                className={this.currentAnim.className}
+                image={this.currentAnim.image}
+                widthFrame={this.currentAnim.widthFrame}
+                heightFrame={this.currentAnim.heightFrame}
+                steps={this.currentAnim.steps}
+                fps={this.fps}
+                autoplay={true}
+                loop={true}
+                gameloop={this.props.gameloop}
+            />
+        );
     }
 
     render() {
