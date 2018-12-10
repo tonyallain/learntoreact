@@ -227,7 +227,6 @@ class Spritesheet extends Component {
 
         let currentRow = Math.floor(this.frame / this.cols);
         let currentCol = Math.floor(this.frame - this.cols * currentRow);
-        console.log(currentCol, currentRow);
         this.spriteElMove.style.backgroundPosition = `-${this.props.widthFrame *
             currentCol}px -${this.props.heightFrame * currentRow}px`;
 
