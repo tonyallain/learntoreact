@@ -40,13 +40,9 @@ class Spritesheet extends Component {
         this.init();
         if (this.props.gameloop) {
             this.gameloopId = this.props.gameloop.subscribe(dt => {
-                this.timer += dt;
                 if (this.isPlaying) {
-                    if (this.timer >= 1000 / this.props.fps) {
-                        if (this.lastSpriteSheet !== this.props.image) {
-                            this.lastSpriteSheet = this.props.image;
-                            this.imageChanged = true;
-                        }
+                    this.timer += dt;
+                    if (this.timer > 1000 / this.props.fps) {
                         this.moveImage();
                         this.timer = 0;
                     }
@@ -251,7 +247,7 @@ class Spritesheet extends Component {
 
         if (this.isPlaying) {
             if (
-                this.imageChanged ||
+                this.lastSpriteSheet !== this.props.image ||
                 (this.direction === 'forward' &&
                     (this.frame === this.props.steps ||
                         this.frame === this.endAt)) ||
@@ -269,7 +265,7 @@ class Spritesheet extends Component {
                 } else {
                     this.pause();
                 }
-                this.imageChanged = false;
+                this.lastSpriteSheet = this.props.image;
             }
         }
     };
