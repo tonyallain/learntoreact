@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import handgunMove from '../../assets/Top_Down_Survivor/handgun/move/sheet.png';
 import handleMovement from './movement';
+import HandgunMove from '../player-components/handgun/HandgunMove';
 
 const Player = props => {
     return (
@@ -9,13 +10,11 @@ const Player = props => {
             style={{
                 position: 'fixed',
                 left: props.position[0],
-                top: props.position[1],
-                backgroundImage: `url('${handgunMove}')`,
-                backgroundPosition: '0 0',
-                width: '258px',
-                height: '220px'
+                top: props.position[1]
             }}
-        />
+        >
+            <HandgunMove getInstance={props.getInstance} />
+        </div>
     );
 };
 

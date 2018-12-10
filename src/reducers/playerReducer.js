@@ -1,7 +1,10 @@
 const initialState = {
     position: [window.innerWidth / 2, window.innerHeight / 2],
     rotation: 0,
-    keyDown: {}
+    keyDown: {},
+    getInstance: sheet => {
+        console.log(sheet);
+    }
 };
 
 const playerReducer = (state = initialState, action) => {

@@ -1,8 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Spritesheet from 'react-responsive-spritesheet';
 import sheet from '../../../assets/Top_Down_Survivor/handgun/move/sheet.png';
 
-const HandgunMove = () => {
+const HandgunMove = props => {
     return (
         <Spritesheet
             className={'handgun'}
@@ -11,11 +12,17 @@ const HandgunMove = () => {
             heightFrame={220}
             steps={20}
             fps={30}
-            autoplay={true}
+            getInstance={props.getInstance}
             loop={true}
             isResponsive={true}
         />
     );
 };
 
-export default HandgunMove;
+function mapStateToProps(state) {
+    return {
+        ...state.player
+    };
+}
+
+export default connect(mapStateToProps)(HandgunMove);
