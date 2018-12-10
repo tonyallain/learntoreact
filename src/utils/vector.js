@@ -6,9 +6,8 @@ export function angle(A, B) {
     let adjacent = B.x - A.x;
     let hypotenuse = distance(A, B);
     let angleBetween = Math.acos(adjacent / hypotenuse) / (Math.PI / 180);
-    // what quadrant is the mouse (B) in relation to the player (A)?
 
-    if (B.y - A.y < 0) {
+    if (B.y - A.y > 0) {
         angleBetween *= -1;
     }
 

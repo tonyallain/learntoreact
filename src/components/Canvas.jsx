@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Player from './player';
 
 const Canvas = () => {
     return (
-        <div className='canvas'>
+        <div className="canvas">
             <Player />
         </div>
     );
