@@ -1,4 +1,5 @@
 import { actionTypes } from '../actions/player-actions';
+import { STARTING_WEAPON } from '../utils/constants';
 
 const initialState = {
     position: [window.innerWidth / 2, window.innerHeight / 2],
@@ -6,7 +7,8 @@ const initialState = {
     moveSpeed: 500,
     size: 128,
     strafeDirection: 0,
-    scale: 1
+    scale: 0.5,
+    currentWeapon: STARTING_WEAPON
 };
 
 const playerReducer = (state = initialState, action) => {
@@ -14,6 +16,8 @@ const playerReducer = (state = initialState, action) => {
         case actionTypes.ROTATE:
             return { ...state, ...action.payload };
         case actionTypes.MOVE:
+            return { ...state, ...action.payload };
+        case actionTypes.SWAP_WEAPON:
             return { ...state, ...action.payload };
         default:
             return state;

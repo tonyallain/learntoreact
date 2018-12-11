@@ -1,6 +1,7 @@
 export default class KeyListener {
     constructor() {
         this.subscribers = [];
+        this.keyDownSubscribers = [];
         this.lastTimestamp = new Date();
         this.currentTimestamp = new Date();
         this.deltaTime = 0;
@@ -19,6 +20,10 @@ export default class KeyListener {
         e.preventDefault();
 
         this.keys[e.key] = true;
+
+        this.keyDownSubscribers.forEach(callback => {
+            callback(e.key);
+        });
     }
 
     onKeyUp(e) {
@@ -72,11 +77,19 @@ export default class KeyListener {
         window.removeEventListener('contextmenu', this.hideContext);
     }
 
-    subscribe(callback) {
-        return this.subscribers.push(callback);
+    subscribe(callback, keyDown) {
+        if (keyDown) {
+            return this.keyDownSubscribers.push(callback);
+        } else {
+            return this.subscribers.push(callback);
+        }
     }
 
-    unsubscribe(id) {
-        this.subscribers.splice(id - 1, 1);
+    unsubscribe(id, fromKeyDown) {
+        if (fromKeyDown) {
+            this.keyDownSubscribers.splice(id - 1, 1);
+        } else {
+            this.subscribers.splice(id - 1, 1);
+        }
     }
 }

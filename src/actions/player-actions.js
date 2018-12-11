@@ -1,11 +1,14 @@
 import { angle } from '../utils/vector';
 import { getNextFrame } from '../utils/animator';
 import { FEET_CONFIGS } from '../config/bottom-animations';
+import { getWeaponConfig } from '../config/top-animations';
 
 export const actionTypes = {
     ROTATE: 'rotate',
     MOVE: 'move',
     SWAP_BOTTOM: 'swap-bottom',
+    SWAP_TOP: 'swap-top',
+    SWAP_WEAPON: 'swap-weapon',
     ANIMATE_BOTTOM: 'animate-bottom',
     ANIMATE_TOP: 'animate-top',
     TRIGGER_ANIMATION_BOTTOM: 'trigger-animation-bottom',
@@ -41,6 +44,24 @@ export const swapBottom = configId => {
     };
 };
 
+export const swapTop = (weaponId, animId) => {
+    const newConfig = getWeaponConfig(weaponId, animId || 0);
+
+    return {
+        type: actionTypes.SWAP_TOP,
+        payload: {
+            ...newConfig
+        }
+    };
+};
+
+export const swapWeapon = weaponId => {
+    return {
+        type: actionTypes.SWAP_WEAPON,
+        payload: { currentWeapon: weaponId }
+    };
+};
+
 export const animateBottom = animProps => {
     const newFrame = getNextFrame(animProps);
 
@@ -66,6 +87,7 @@ export const animateTop = animProps => {
 };
 
 export const triggerAnimationTop = (startAnim, shouldLoop) => {
+    // what we're really doing is swapping top then swapping back when it's done
     return {
         type: actionTypes.TRIGGER_ANIMATION_TOP,
         payload: {

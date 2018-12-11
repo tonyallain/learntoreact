@@ -5,7 +5,9 @@ import {
     setFacing,
     movePlayer,
     swapBottom,
-    triggerAnimationTop
+    triggerAnimationTop,
+    swapWeapon,
+    swapTop
 } from '../../actions/player-actions';
 import {
     DIAGONAL_RATIO,
@@ -46,6 +48,34 @@ class Player extends React.Component {
         const input = storeState.game.input;
         const update = storeState.game.update;
         this.timer = 0;
+
+        // sub my keystrokes
+        this.keyDownId = input.subscribe(key => {
+            switch (key) {
+                case '1':
+                    store.dispatch(swapWeapon(0));
+                    store.dispatch(swapTop(0));
+                    break;
+                case '2':
+                    store.dispatch(swapWeapon(1));
+                    store.dispatch(swapTop(1));
+                    break;
+                case '3':
+                    store.dispatch(swapWeapon(2));
+                    store.dispatch(swapTop(2));
+                    break;
+                case '4':
+                    store.dispatch(swapWeapon(3));
+                    store.dispatch(swapTop(3));
+                    break;
+                case '5':
+                    store.dispatch(swapWeapon(4));
+                    store.dispatch(swapTop(4));
+                    break;
+                default:
+                    break;
+            }
+        }, true);
 
         // sub my mouseLook
         this.rotateId = input.subscribe((e, isClick) => {
@@ -144,6 +174,18 @@ class Player extends React.Component {
                 store.dispatch(swapBottom(strafeDirection));
             }
 
+            // if we changed from 0 to non 0 we should swap tops from idle -> move
+            if (this.props.strafeDirection === 0 && strafeDirection !== 0) {
+                console.log('from idle to moving');
+                store.dispatch(swapTop(this.props.currentWeapon, 1));
+            } else if (
+                this.props.strafeDirection !== 0 &&
+                strafeDirection === 0
+            ) {
+                console.log('from moving to idle');
+                store.dispatch(swapTop(this.props.currentWeapon, 0));
+            }
+
             store.dispatch(
                 movePlayer(
                     this.props.position,
@@ -163,6 +205,7 @@ class Player extends React.Component {
 
         input.unsubscribe(this.rotateId);
         update.unsubscribe(this.moveId);
+        input.unsubscribe(this.keyDownId);
     }
 }
 
