@@ -12,7 +12,8 @@ export const actionTypes = {
     ANIMATE_BOTTOM: 'animate-bottom',
     ANIMATE_TOP: 'animate-top',
     TRIGGER_ANIMATION_BOTTOM: 'trigger-animation-bottom',
-    TRIGGER_ANIMATION_TOP: 'trigger-animation-top'
+    TRIGGER_ANIMATION_TOP: 'trigger-animation-top',
+    SHOOT: 'shoot'
 };
 
 export const setFacing = (A, B) => {
@@ -95,5 +96,12 @@ export const triggerAnimationTop = (startAnim, shouldLoop) => {
             currentFrame: 0,
             loop: shouldLoop
         }
+    };
+};
+
+export const flashMuzzle = (x, y, scale) => {
+    return {
+        type: actionTypes.SHOOT,
+        payload: {}
     };
 };
