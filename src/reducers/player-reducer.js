@@ -7,7 +7,7 @@ const initialState = {
     moveSpeed: 500,
     size: 128,
     strafeDirection: 0,
-    scale: 1,
+    scale: 0.5,
     currentWeapon: STARTING_WEAPON
 };
 

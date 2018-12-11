@@ -2,6 +2,7 @@ import { angle } from '../utils/vector';
 import { getNextFrame } from '../utils/animator';
 import { FEET_CONFIGS } from '../config/bottom-animations';
 import { getWeaponConfig } from '../config/top-animations';
+import { getMuzzleSettings } from '../config/muzzle-positions';
 
 export const actionTypes = {
     ROTATE: 'rotate',
@@ -99,9 +100,10 @@ export const triggerAnimationTop = (startAnim, shouldLoop) => {
     };
 };
 
-export const flashMuzzle = (x, y, scale) => {
+export const flashMuzzle = (forWeapon, off) => {
+    const settings = getMuzzleSettings(forWeapon);
     return {
         type: actionTypes.SHOOT,
-        payload: {}
+        payload: { hidden: off, ...settings }
     };
 };

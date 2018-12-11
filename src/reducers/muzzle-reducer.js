@@ -1,12 +1,16 @@
+import { actionTypes } from '../actions/player-actions';
+import { getMuzzleSettings } from '../config/muzzle-positions';
+import { STARTING_WEAPON } from '../utils/constants';
+
 const initialState = {
-    hidden: false,
-    scale: 1,
-    x: 0,
-    y: 0
+    hidde: true,
+    ...getMuzzleSettings(STARTING_WEAPON)
 };
 
 const muzzleReducer = (state = initialState, action) => {
     switch (action.type) {
+        case actionTypes.SHOOT:
+            return { ...state, ...action.payload };
         default:
             return state;
     }

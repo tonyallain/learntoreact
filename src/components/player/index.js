@@ -6,7 +6,8 @@ import {
     movePlayer,
     swapBottom,
     swapWeapon,
-    swapTop
+    swapTop,
+    flashMuzzle
 } from '../../actions/player-actions';
 import {
     DIAGONAL_RATIO,
@@ -40,7 +41,7 @@ class Player extends React.Component {
                     top: `${this.props.position[1]}px`,
                     width: `${this.props.size}px`,
                     height: `${this.props.size}px`,
-                    border: '2px solid black',
+                    // border: '2px solid black',
                     transformOrigin: 'top left',
                     transform: `rotate(${this.props.rotation}deg) scale(${
                         this.props.scale
@@ -108,6 +109,10 @@ class Player extends React.Component {
                         } else {
                             store.dispatch(
                                 swapTop(this.props.currentWeapon, ANIM_SHOOT)
+                            );
+                            // dispatch muzzle flash
+                            store.dispatch(
+                                flashMuzzle(this.props.currentWeapon, false)
                             );
                         }
 
