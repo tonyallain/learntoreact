@@ -1,12 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import sheet from '../../assets/Top_Down_Survivor/handgun/move/sheet.png';
 import store from '../../store';
-import {
-    animateBottom,
-    triggerAnimationTop,
-    animateTop
-} from '../../actions/player-actions';
+import { animateTop } from '../../actions/player-actions';
 
 class Top extends React.Component {
     render() {
@@ -50,7 +45,6 @@ class Top extends React.Component {
     componentWillUnmount() {
         // we need to unregister
         const storeState = store.getState();
-        const input = storeState.game.input;
         const update = storeState.game.update;
 
         update.unsubscribe(this.animId);

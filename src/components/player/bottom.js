@@ -1,10 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import store from '../../store';
-import {
-    animateBottom,
-    triggerAnimationTop
-} from '../../actions/player-actions';
+import { animateBottom } from '../../actions/player-actions';
 
 class Bottom extends React.Component {
     render() {
@@ -48,7 +45,6 @@ class Bottom extends React.Component {
     componentWillUnmount() {
         // we need to unregister
         const storeState = store.getState();
-        const input = storeState.game.input;
         const update = storeState.game.update;
 
         update.unsubscribe(this.animId);
