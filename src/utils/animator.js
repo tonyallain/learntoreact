@@ -1,4 +1,5 @@
 export const getNextFrame = anim => {
+    console.log(`triggering for ${anim.image}`);
     if (anim.currentFrame === anim.steps) {
         return { ...anim, currentFrame: 0, isAnimating: anim.loop };
     } else {

@@ -1,29 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import testSheet2 from '../../assets/Top_Down_Survivor/feet/run/sheet.png';
+import sheet from '../../assets/Top_Down_Survivor/feet/run/sheet.png';
 import store from '../../store';
 import { animatePlayer, triggerAnimation } from '../../actions/player-actions';
 
 class Bottom extends React.Component {
     render() {
         return (
-            <div>
-                <div
-                    style={{
-                        position: 'absolute',
-                        left: 0,
-                        top: 0,
-                        width: `100%`,
-                        height: `100%`,
-                        transformOrigin: 'top left',
-                        backgroundRepeat: 'no-repeat',
-                        backgroundImage: `url('${testSheet2}')`,
-                        backgroundPosition: `-${this.props.currentWidth}px -${
-                            this.props.currentHeight
-                        }px`
-                    }}
-                />
-            </div>
+            <div
+                style={{
+                    position: 'absolute',
+                    left: '50%',
+                    top: '50%',
+                    width: `${this.props.widthFrame}px`,
+                    height: `${this.props.heightFrame}px`,
+                    transform: `translate(-50%, -50%)`,
+                    backgroundRepeat: 'no-repeat',
+                    backgroundImage: `url('${sheet}')`,
+                    backgroundPosition: `-${this.props.currentWidth}px -${
+                        this.props.currentHeight
+                    }px`
+                }}
+            />
         );
     }
 

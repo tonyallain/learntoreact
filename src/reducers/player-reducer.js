@@ -4,7 +4,7 @@ const initialState = {
     position: [window.innerWidth / 2, window.innerHeight / 2],
     rotation: 0,
     moveSpeed: 500,
-    size: 256,
+    size: 128,
     strafeDirection: 0,
     scale: 0.5
 };

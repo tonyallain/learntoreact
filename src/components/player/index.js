@@ -22,7 +22,7 @@ class Player extends React.Component {
         return (
             <div
                 style={{
-                    position: 'absolute',
+                    position: 'fixed',
                     left: this.props.position[0],
                     top: this.props.position[1],
                     width: `${this.props.size}px`,
@@ -34,7 +34,8 @@ class Player extends React.Component {
                     }) translate(-50%, -50%)`
                 }}
             >
-                <Bottom />
+                {/* <Bottom /> */}
+                <Top />
             </div>
         );
     }

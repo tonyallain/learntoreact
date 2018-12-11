@@ -1,7 +1,7 @@
 import { actionTypes } from '../actions/player-actions';
 
 const initialState = {
-    image: '',
+    image: 'TEMP BOTTOM',
     steps: 20,
     widthFrame: 204,
     heightFrame: 124,

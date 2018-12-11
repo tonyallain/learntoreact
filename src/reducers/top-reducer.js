@@ -1,18 +1,18 @@
 import { actionTypes } from '../actions/player-actions';
 
 const initialState = {
-    image: '',
-    steps: 15,
-    widthFrame: 291,
-    heightFrame: 256,
+    image: 'TEMP TOP',
+    steps: 20,
+    widthFrame: 258,
+    heightFrame: 220,
     currentWidth: 0,
     currentHeight: 0,
     rows: 5,
-    cols: 3,
+    cols: 4,
     fps: 30,
     currentFrame: 0,
-    loop: false,
-    isAnimating: false
+    loop: true,
+    isAnimating: true
 };
 
 const topReducer = (state = initialState, action) => {
