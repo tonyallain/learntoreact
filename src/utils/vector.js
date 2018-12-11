@@ -1,13 +1,15 @@
 export function distance(A, B) {
-    return Math.sqrt((B.x - A.x) * (B.x - A.x) + (B.y - A.y) * (B.y - A.y));
+    return Math.sqrt(
+        (B[0] - A[0]) * (B[0] - A[0]) + (B[1] - A[1]) * (B[1] - A[1])
+    );
 }
 
 export function angle(A, B) {
-    let adjacent = B.x - A.x;
+    let adjacent = B[0] - A[0];
     let hypotenuse = distance(A, B);
     let angleBetween = Math.acos(adjacent / hypotenuse) / (Math.PI / 180);
 
-    if (B.y - A.y > 0) {
+    if (B[1] - A[1] < 0) {
         angleBetween *= -1;
     }
 
@@ -15,5 +17,5 @@ export function angle(A, B) {
 }
 
 export function slope(A, B) {
-    return { rise: B.y - A.y, run: B.x - A.x };
+    return { rise: B[1] - A[1], run: B[0] - A[0] };
 }

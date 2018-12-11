@@ -14,27 +14,30 @@ import {
     STRAFE_LEFT,
     STRAFE_RIGHT
 } from '../../utils/constants';
-import Top from './top';
-import Bottom from './bottom';
 
-class Player extends React.Component {
+class Top extends React.Component {
     render() {
         return (
-            <div
-                style={{
-                    position: 'absolute',
-                    left: this.props.position[0],
-                    top: this.props.position[1],
-                    width: `${this.props.size}px`,
-                    height: `${this.props.size}px`,
-                    border: '2px solid black',
-                    transformOrigin: 'top left',
-                    transform: `rotate(${this.props.rotation}deg) scale(${
-                        this.props.scale
-                    }) translate(-50%, -50%)`
-                }}
-            >
-                <Bottom />
+            <div>
+                <div
+                    style={{
+                        position: 'absolute',
+                        left: this.props.position[0],
+                        top: this.props.position[1],
+                        width: `${this.props.size}px`,
+                        height: `${this.props.size}px`,
+                        border: '2px solid black',
+                        transformOrigin: 'top left',
+                        transform: `rotate(${this.props.rotation}deg) scale(${
+                            this.props.scale
+                        }) translate(-50%, -50%)`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundImage: `url('${testSheet}')`,
+                        backgroundPosition: `-${this.props.currentWidth}px -${
+                            this.props.currentHeight
+                        }px`
+                    }}
+                />
             </div>
         );
     }
@@ -51,7 +54,7 @@ class Player extends React.Component {
             if (isClick) {
                 console.log('clicked');
                 // dispatch an anim call if we can interrupt the current anim
-                //store.dispatch(triggerAnimation(true, true));
+                store.dispatch(triggerAnimation(true, true));
             } else {
                 store.dispatch(setFacing(this.props.position, e));
             }
@@ -151,13 +154,13 @@ class Player extends React.Component {
 
         // we also want to sub my animation
         this.animId = update.subscribe(deltaTime => {
-            // if (this.props.isAnimating) {
-            //     this.timer += deltaTime;
-            //     if (this.timer > 1000 / this.props.fps) {
-            //         this.timer = 0;
-            //         store.dispatch(animatePlayer(this.props));
-            //     }
-            // }
+            if (this.props.isAnimating) {
+                this.timer += deltaTime;
+                if (this.timer > 1000 / this.props.fps) {
+                    this.timer = 0;
+                    store.dispatch(animatePlayer(this.props));
+                }
+            }
         });
     }
 
@@ -175,8 +178,8 @@ class Player extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        ...state.player
+        ...state.top
     };
 }
 
-export default connect(mapStateToProps)(Player);
+export default connect(mapStateToProps)(Top);

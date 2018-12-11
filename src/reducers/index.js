@@ -1,5 +1,12 @@
 import { combineReducers } from 'redux';
 import playerReducer from './player-reducer';
+import bottomReducer from './bottom-reducer';
+import topReducer from './top-reducer';
 import gameReducer from './game-reducer';
 
-export default combineReducers({ player: playerReducer, game: gameReducer });
+export default combineReducers({
+    player: playerReducer,
+    game: gameReducer,
+    bottom: bottomReducer,
+    top: topReducer
+});

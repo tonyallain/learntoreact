@@ -12,21 +12,19 @@ export default class KeyListener {
         this.isDown = this.isDown.bind(this);
         this.onMouseMove = this.onMouseMove.bind(this);
         this.hideContext = this.hideContext.bind(this);
-        this.onMouseUp = this.onMouseUp.bind(this);
+        this.onMouseDown = this.onMouseDown.bind(this);
     }
 
     onKeyDown(e) {
         e.preventDefault();
 
         this.keys[e.key] = true;
-        console.log(e.key + ' DOWN');
     }
 
     onKeyUp(e) {
         e.preventDefault();
 
         this.keys[e.key] = false;
-        console.log(e.key + ' UP');
     }
 
     isDown(key) {
@@ -35,22 +33,23 @@ export default class KeyListener {
 
     onMouseMove(e) {
         e.preventDefault();
-
         this.mousePos = [e.clientX, e.clientY];
-        console.log(this.mousePos);
+
+        this.subscribers.forEach(callback => {
+            callback(this.mousePos);
+        });
     }
 
     getMousePos() {
         return this.mousePos;
     }
 
-    onMouseUp(e) {
+    onMouseDown(e) {
         e.preventDefault();
 
         this.subscribers.forEach(callback => {
-            callback(e);
+            callback(e, true);
         });
-        console.log(e);
     }
 
     hideContext(e) {
@@ -61,7 +60,7 @@ export default class KeyListener {
         window.addEventListener('keydown', this.onKeyDown);
         window.addEventListener('keyup', this.onKeyUp);
         window.addEventListener('mousemove', this.onMouseMove);
-        window.addEventListener('mouseup', this.onMouseUp);
+        window.addEventListener('mousedown', this.onMouseDown);
         window.addEventListener('contextmenu', this.hideContext);
     }
 
@@ -69,7 +68,7 @@ export default class KeyListener {
         window.removeEventListener('keydown', this.onKeyDown);
         window.removeEventListener('keyup', this.onKeyUp);
         window.removeEventListener('mousemove', this.onMouseMove);
-        window.removeEventListener('mouseup', this.onMouseUp);
+        window.removeEventListener('mousedown', this.onMouseDown);
         window.removeEventListener('contextmenu', this.hideContext);
     }
 

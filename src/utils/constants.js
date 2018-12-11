@@ -1,3 +1,3 @@
-export const diagonalRatio = 1 - 0.0857864376269049511983112757903;
-export const updateInterval = 10;
-export const zombieUpdateRate = 50;
+export const DIAGONAL_RATIO = 0.9142135623730950488016887242097;
+export const STRAFE_LEFT = -1;
+export const STRAFE_RIGHT = 1;
