@@ -1,7 +1,8 @@
 import { actionTypes } from '../actions/player-actions';
+import { FEET_CONFIGS } from '../config/bottom-animations';
 
 const initialState = {
-    image: 'TEMP BOTTOM',
+    image: FEET_CONFIGS[1].image,
     steps: 20,
     widthFrame: 204,
     heightFrame: 124,
@@ -17,7 +18,7 @@ const initialState = {
 
 const bottomReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.ANIMATE:
+        case actionTypes.ANIMATE_BOTTOM:
             return { ...state, ...action.payload };
         case actionTypes.TRIGGER_ANIMATION:
             return { ...state, ...action.payload };

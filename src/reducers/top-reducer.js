@@ -1,7 +1,8 @@
 import { actionTypes } from '../actions/player-actions';
+import TEMP from '../assets/Top_Down_Survivor/handgun/move/sheet.png';
 
 const initialState = {
-    image: 'TEMP TOP',
+    image: TEMP,
     steps: 20,
     widthFrame: 258,
     heightFrame: 220,
@@ -17,7 +18,7 @@ const initialState = {
 
 const topReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.ANIMATE:
+        case actionTypes.ANIMATE_TOP:
             return { ...state, ...action.payload };
         case actionTypes.TRIGGER_ANIMATION:
             return { ...state, ...action.payload };

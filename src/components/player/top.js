@@ -2,7 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import sheet from '../../assets/Top_Down_Survivor/handgun/move/sheet.png';
 import store from '../../store';
-import { animatePlayer, triggerAnimation } from '../../actions/player-actions';
+import {
+    animateBottom,
+    triggerAnimationTop,
+    animateTop
+} from '../../actions/player-actions';
 
 class Top extends React.Component {
     render() {
@@ -16,7 +20,7 @@ class Top extends React.Component {
                     height: `${this.props.heightFrame}px`,
                     transform: `translate(-50%, -50%)`,
                     backgroundRepeat: 'no-repeat',
-                    backgroundImage: `url('${sheet}')`,
+                    backgroundImage: `url('${this.props.image}')`,
                     backgroundPosition: `-${this.props.currentWidth}px -${
                         this.props.currentHeight
                     }px`
@@ -37,8 +41,7 @@ class Top extends React.Component {
                 this.timer += deltaTime;
                 if (this.timer > 1000 / this.props.fps) {
                     this.timer = 0;
-                    // store.dispatch(animatePlayer(this.props));
-                    console.log(this.props);
+                    store.dispatch(animateTop(this.props));
                 }
             }
         });
@@ -60,15 +63,4 @@ function mapStateToProps(state) {
     };
 }
 
-function mapDispatchToProps(dispatch, ownProps) {
-    return {
-        updateAnim: () => {
-            dispatch(animatePlayer(ownProps));
-        }
-    };
-}
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Top);
+export default connect(mapStateToProps)(Top);

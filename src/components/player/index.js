@@ -1,16 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import testSheet from '../../assets/Top_Down_Survivor/handgun/meleeattack/sheet.png';
-import testSheet2 from '../../assets/Top_Down_Survivor/feet/run/sheet.png';
 import store from '../../store';
-import {
-    setFacing,
-    movePlayer,
-    animatePlayer,
-    triggerAnimation
-} from '../../actions/player-actions';
+import { setFacing, movePlayer } from '../../actions/player-actions';
 import {
     DIAGONAL_RATIO,
+    FEET_IDLE,
+    FEET_MOVE,
     STRAFE_LEFT,
     STRAFE_RIGHT
 } from '../../utils/constants';
@@ -49,11 +44,7 @@ class Player extends React.Component {
 
         // sub my mouseLook
         this.rotateId = input.subscribe((e, isClick) => {
-            if (isClick) {
-                console.log('clicked');
-                // dispatch an anim call if we can interrupt the current anim
-                //store.dispatch(triggerAnimation(true, true));
-            } else {
+            if (!isClick) {
                 store.dispatch(setFacing(this.props.position, e));
             }
         });
@@ -89,7 +80,8 @@ class Player extends React.Component {
                 this.props.position[1] + y
             ];
 
-            let strafeDirection = 0;
+            let strafeDirection = x !== 0 || y !== 0 ? FEET_MOVE : FEET_IDLE;
+
             if (this.props.rotation >= -45 && this.props.rotation < 45) {
                 // facing right
                 if (y < 0) {
@@ -149,17 +141,6 @@ class Player extends React.Component {
                 )
             );
         });
-
-        // we also want to sub my animation
-        this.animId = update.subscribe(deltaTime => {
-            // if (this.props.isAnimating) {
-            //     this.timer += deltaTime;
-            //     if (this.timer > 1000 / this.props.fps) {
-            //         this.timer = 0;
-            //         store.dispatch(animatePlayer(this.props));
-            //     }
-            // }
-        });
     }
 
     componentWillUnmount() {
@@ -170,7 +151,6 @@ class Player extends React.Component {
 
         input.unsubscribe(this.rotateId);
         update.unsubscribe(this.moveId);
-        update.unsubscribe(this.animId);
     }
 }
 
