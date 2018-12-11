@@ -37,7 +37,11 @@ class Bottom extends React.Component {
                 this.timer += deltaTime;
                 if (this.timer > 1000 / this.props.fps) {
                     this.timer = 0;
-                    store.dispatch(animatePlayer(this.props));
+                    // store.dispatch(animatePlayer(this.props));
+                    //this.props.updateAnim();
+                    // this.updateAnimation();
+                    // this.props.updateAnim();
+                    console.log(this.props);
                 }
             }
         });
@@ -59,4 +63,15 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(Bottom);
+function mapDispatchToProps(dispatch, ownProps) {
+    return {
+        updateAnim: () => {
+            dispatch(animatePlayer(ownProps));
+        }
+    };
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Bottom);

@@ -34,7 +34,7 @@ class Player extends React.Component {
                     }) translate(-50%, -50%)`
                 }}
             >
-                {/* <Bottom /> */}
+                <Bottom />
                 <Top />
             </div>
         );

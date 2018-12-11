@@ -37,7 +37,8 @@ class Top extends React.Component {
                 this.timer += deltaTime;
                 if (this.timer > 1000 / this.props.fps) {
                     this.timer = 0;
-                    store.dispatch(animatePlayer(this.props));
+                    // store.dispatch(animatePlayer(this.props));
+                    console.log(this.props);
                 }
             }
         });
@@ -59,4 +60,15 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps)(Top);
+function mapDispatchToProps(dispatch, ownProps) {
+    return {
+        updateAnim: () => {
+            dispatch(animatePlayer(ownProps));
+        }
+    };
+}
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Top);
