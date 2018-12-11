@@ -5,6 +5,7 @@ import { FEET_CONFIGS } from '../config/bottom-animations';
 export const actionTypes = {
     ROTATE: 'rotate',
     MOVE: 'move',
+    SWAP_BOTTOM: 'swap-bottom',
     ANIMATE_BOTTOM: 'animate-bottom',
     ANIMATE_TOP: 'animate-top',
     TRIGGER_ANIMATION_BOTTOM: 'trigger-animation-bottom',
@@ -25,6 +26,17 @@ export const movePlayer = (oldPosition, newPosition, lookAt, strafe) => {
             position: newPosition,
             rotation: angle(oldPosition, lookAt),
             strafeDirection: strafe
+        }
+    };
+};
+
+export const swapBottom = configId => {
+    const newConfig = FEET_CONFIGS[configId];
+
+    return {
+        type: actionTypes.SWAP_BOTTOM,
+        payload: {
+            ...newConfig
         }
     };
 };

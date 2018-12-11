@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import store from '../../store';
-import { setFacing, movePlayer } from '../../actions/player-actions';
+import {
+    setFacing,
+    movePlayer,
+    swapBottom
+} from '../../actions/player-actions';
 import {
     DIAGONAL_RATIO,
     FEET_IDLE,
@@ -130,6 +134,10 @@ class Player extends React.Component {
                 newPosition[1] = scaledSize;
             } else if (newPosition[1] > window.innerHeight - scaledSize) {
                 newPosition[1] = window.innerHeight - scaledSize;
+            }
+
+            if (strafeDirection !== this.props.strafeDirection) {
+                store.dispatch(swapBottom(strafeDirection));
             }
 
             store.dispatch(
