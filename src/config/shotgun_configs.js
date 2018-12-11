@@ -67,7 +67,7 @@ const SHOTGUN_CONFIGS = [
         currentFrame: 0,
         loop: false,
         isAnimating: true,
-        adjust: [0, 0]
+        adjust: [20, 2]
     },
     // shoot
     {

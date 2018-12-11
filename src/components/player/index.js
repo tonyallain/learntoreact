@@ -83,6 +83,13 @@ class Player extends React.Component {
                     store.dispatch(swapWeapon(WEAPON_RIFLE));
                     store.dispatch(swapTop(WEAPON_RIFLE));
                     break;
+                case 'r':
+                    if (this.props.currentWeapon > WEAPON_KNIFE) {
+                        store.dispatch(
+                            swapTop(this.props.currentWeapon, ANIM_RELOAD)
+                        );
+                    }
+                    break;
                 default:
                     break;
             }
