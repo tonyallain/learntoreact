@@ -45,7 +45,7 @@ const FLASHLIGHT_CONFIGS = [
         currentHeight: 0,
         rows: 5,
         cols: 3,
-        fps: 30,
+        fps: 35,
         currentFrame: 0,
         loop: false,
         isAnimating: true,
