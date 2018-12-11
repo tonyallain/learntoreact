@@ -16,7 +16,8 @@ const KNIFE_CONFIGS = [
         fps: 30,
         currentFrame: 0,
         loop: true,
-        isAnimating: true
+        isAnimating: true,
+        adjust: [0, 0]
     },
     // move
     {
@@ -31,7 +32,8 @@ const KNIFE_CONFIGS = [
         fps: 30,
         currentFrame: 0,
         loop: true,
-        isAnimating: true
+        isAnimating: true,
+        adjust: [0, 0]
     },
     // melee
     {
@@ -46,7 +48,8 @@ const KNIFE_CONFIGS = [
         fps: 30,
         currentFrame: 0,
         loop: false,
-        isAnimating: true
+        isAnimating: true,
+        adjust: [20, 30]
     }
 ];
 

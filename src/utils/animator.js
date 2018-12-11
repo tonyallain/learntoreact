@@ -1,5 +1,6 @@
 export const getNextFrame = anim => {
     if (anim.currentFrame === anim.steps) {
+        // maybe we can dispatch an event here to notify an anim has completed?
         return { ...anim, currentFrame: 0, isAnimating: anim.loop };
     } else {
         const currentColumn = anim.currentFrame % anim.cols;

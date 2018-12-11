@@ -16,7 +16,8 @@ const FLASHLIGHT_CONFIGS = [
         fps: 30,
         currentFrame: 0,
         loop: true,
-        isAnimating: true
+        isAnimating: true,
+        adjust: [20, 0]
     },
     // move
     {
@@ -31,7 +32,8 @@ const FLASHLIGHT_CONFIGS = [
         fps: 30,
         currentFrame: 0,
         loop: true,
-        isAnimating: true
+        isAnimating: true,
+        adjust: [20, 0]
     },
     // melee
     {
@@ -46,7 +48,8 @@ const FLASHLIGHT_CONFIGS = [
         fps: 30,
         currentFrame: 0,
         loop: false,
-        isAnimating: true
+        isAnimating: true,
+        adjust: [20, -10]
     }
 ];
 

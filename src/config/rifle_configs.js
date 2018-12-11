@@ -18,7 +18,8 @@ const RIFLE_CONFIGS = [
         fps: 30,
         currentFrame: 0,
         loop: true,
-        isAnimating: true
+        isAnimating: true,
+        adjust: [20, 0]
     },
     // move
     {
@@ -33,7 +34,8 @@ const RIFLE_CONFIGS = [
         fps: 30,
         currentFrame: 0,
         loop: true,
-        isAnimating: true
+        isAnimating: true,
+        adjust: [20, 0]
     },
     // melee
     {
@@ -48,7 +50,8 @@ const RIFLE_CONFIGS = [
         fps: 30,
         currentFrame: 0,
         loop: false,
-        isAnimating: true
+        isAnimating: true,
+        adjust: [20, -5]
     },
     // reload
     {
@@ -63,7 +66,8 @@ const RIFLE_CONFIGS = [
         fps: 30,
         currentFrame: 0,
         loop: false,
-        isAnimating: true
+        isAnimating: true,
+        adjust: [0, 0]
     },
     // shoot
     {
@@ -78,7 +82,8 @@ const RIFLE_CONFIGS = [
         fps: 30,
         currentFrame: 0,
         loop: false,
-        isAnimating: true
+        isAnimating: true,
+        adjust: [20, 0]
     }
 ];
 

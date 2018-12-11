@@ -5,7 +5,6 @@ import {
     setFacing,
     movePlayer,
     swapBottom,
-    triggerAnimationTop,
     swapWeapon,
     swapTop
 } from '../../actions/player-actions';
@@ -14,7 +13,19 @@ import {
     FEET_IDLE,
     FEET_MOVE,
     STRAFE_LEFT,
-    STRAFE_RIGHT
+    STRAFE_RIGHT,
+    ANIM_IDLE,
+    ANIM_MELEE,
+    ANIM_MOVE,
+    ANIM_RELOAD,
+    ANIM_SHOOT,
+    MOUSE_LEFT,
+    MOUSE_RIGHT,
+    WEAPON_HANDGUN,
+    WEAPON_FLASHLIGHT,
+    WEAPON_KNIFE,
+    WEAPON_RIFLE,
+    WEAPON_SHOTGUN
 } from '../../utils/constants';
 import Top from './top';
 import Bottom from './bottom';
@@ -25,8 +36,8 @@ class Player extends React.Component {
             <div
                 style={{
                     position: 'fixed',
-                    left: this.props.position[0],
-                    top: this.props.position[1],
+                    left: `${this.props.position[0]}px`,
+                    top: `${this.props.position[1]}px`,
                     width: `${this.props.size}px`,
                     height: `${this.props.size}px`,
                     border: '2px solid black',
@@ -53,24 +64,24 @@ class Player extends React.Component {
         this.keyDownId = input.subscribe(key => {
             switch (key) {
                 case '1':
-                    store.dispatch(swapWeapon(0));
-                    store.dispatch(swapTop(0));
+                    store.dispatch(swapWeapon(WEAPON_FLASHLIGHT));
+                    store.dispatch(swapTop(WEAPON_FLASHLIGHT));
                     break;
                 case '2':
-                    store.dispatch(swapWeapon(1));
-                    store.dispatch(swapTop(1));
+                    store.dispatch(swapWeapon(WEAPON_KNIFE));
+                    store.dispatch(swapTop(WEAPON_KNIFE));
                     break;
                 case '3':
-                    store.dispatch(swapWeapon(2));
-                    store.dispatch(swapTop(2));
+                    store.dispatch(swapWeapon(WEAPON_HANDGUN));
+                    store.dispatch(swapTop(WEAPON_HANDGUN));
                     break;
                 case '4':
-                    store.dispatch(swapWeapon(3));
-                    store.dispatch(swapTop(3));
+                    store.dispatch(swapWeapon(WEAPON_SHOTGUN));
+                    store.dispatch(swapTop(WEAPON_SHOTGUN));
                     break;
                 case '5':
-                    store.dispatch(swapWeapon(4));
-                    store.dispatch(swapTop(4));
+                    store.dispatch(swapWeapon(WEAPON_RIFLE));
+                    store.dispatch(swapTop(WEAPON_RIFLE));
                     break;
                 default:
                     break;
@@ -80,8 +91,28 @@ class Player extends React.Component {
         // sub my mouseLook
         this.rotateId = input.subscribe((e, isClick) => {
             if (isClick) {
-                console.log('click');
-                //store.dispatch(triggerAnimationTop(this.props));
+                switch (e.button) {
+                    case MOUSE_LEFT:
+                        // some weapons don't have left click
+                        if (this.props.currentWeapon < WEAPON_HANDGUN) {
+                            store.dispatch(
+                                swapTop(this.props.currentWeapon, ANIM_MELEE)
+                            );
+                        } else {
+                            store.dispatch(
+                                swapTop(this.props.currentWeapon, ANIM_SHOOT)
+                            );
+                        }
+
+                        break;
+                    case MOUSE_RIGHT:
+                        store.dispatch(
+                            swapTop(this.props.currentWeapon, ANIM_MELEE)
+                        );
+                        break;
+                    default:
+                        break;
+                }
             } else {
                 store.dispatch(setFacing(this.props.position, e));
             }
@@ -174,16 +205,16 @@ class Player extends React.Component {
                 store.dispatch(swapBottom(strafeDirection));
             }
 
-            // if we changed from 0 to non 0 we should swap tops from idle -> move
-            if (this.props.strafeDirection === 0 && strafeDirection !== 0) {
-                console.log('from idle to moving');
-                store.dispatch(swapTop(this.props.currentWeapon, 1));
-            } else if (
-                this.props.strafeDirection !== 0 &&
-                strafeDirection === 0
+            if (
+                this.props.strafeDirection === ANIM_IDLE &&
+                strafeDirection !== ANIM_IDLE
             ) {
-                console.log('from moving to idle');
-                store.dispatch(swapTop(this.props.currentWeapon, 0));
+                store.dispatch(swapTop(this.props.currentWeapon, ANIM_MOVE));
+            } else if (
+                this.props.strafeDirection !== ANIM_IDLE &&
+                strafeDirection === ANIM_IDLE
+            ) {
+                store.dispatch(swapTop(this.props.currentWeapon, ANIM_IDLE));
             }
 
             store.dispatch(

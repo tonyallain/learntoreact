@@ -9,8 +9,8 @@ class Top extends React.Component {
             <div
                 style={{
                     position: 'absolute',
-                    left: '50%',
-                    top: '50%',
+                    left: `${50 + this.props.adjust[0]}%`,
+                    top: `${50 + this.props.adjust[1]}%`,
                     width: `${this.props.widthFrame}px`,
                     height: `${this.props.heightFrame}px`,
                     transform: `translate(-50%, -50%)`,
