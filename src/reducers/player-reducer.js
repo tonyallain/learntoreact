@@ -6,7 +6,7 @@ const initialState = {
     moveSpeed: 500,
     size: 128,
     strafeDirection: 0,
-    scale: 0.5
+    scale: 1
 };
 
 const playerReducer = (state = initialState, action) => {

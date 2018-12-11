@@ -4,7 +4,8 @@ import store from '../../store';
 import {
     setFacing,
     movePlayer,
-    swapBottom
+    swapBottom,
+    triggerAnimationTop
 } from '../../actions/player-actions';
 import {
     DIAGONAL_RATIO,
@@ -48,7 +49,10 @@ class Player extends React.Component {
 
         // sub my mouseLook
         this.rotateId = input.subscribe((e, isClick) => {
-            if (!isClick) {
+            if (isClick) {
+                console.log('click');
+                //store.dispatch(triggerAnimationTop(this.props));
+            } else {
                 store.dispatch(setFacing(this.props.position, e));
             }
         });
