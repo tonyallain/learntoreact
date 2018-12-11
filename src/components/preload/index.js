@@ -5,6 +5,7 @@ import RiflePreload from './RiflePreload';
 import KnifePreload from './KnifePreload';
 import FlashlightPreload from './FlashlightPreload';
 import FeetPreload from './FeetPreload';
+import EnemyPreload from './EnemyPreload';
 
 const PreloadedAssets = props => {
     return (
@@ -15,6 +16,7 @@ const PreloadedAssets = props => {
             <KnifePreload />
             <FlashlightPreload />
             <FeetPreload />
+            <EnemyPreload />
         </div>
     );
 };

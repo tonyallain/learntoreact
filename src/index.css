@@ -1,127 +1,28 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-    'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
+        'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+        'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 html,
 body {
-  overflow: hidden;
-  height: 100%;
+    overflow: hidden;
+    height: 100%;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
 }
 
 .canvas {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.centerOfParent {
-  position: fixed;
-  left: 5%;
-  top: 35%;
-  transform: scale(0.25);
-}
-
-.idleFeet {
-  position: fixed;
-  left: 20%;
-  top: 35%;
-  transform: scale(0.25);
-}
-
-.zombieIdle {
-  position: fixed;
-  left: 7%;
-  top: 30%;
-  transform: scale(0.25);
-}
-
-.zombieMove {
-  position: fixed;
-  left: -2%;
-  top: 22%;
-  transform: scale(0.25);
-}
-
-.zombieAttack {
-  position: fixed;
-  left: -9%;
-  top: 24%;
-  transform: scale(0.25);
-}
-
-.strafing {
-  position: fixed;
-  left: 15%;
-  top: 33%;
-  transform: scale(0.25);
-}
-
-.knife {
-  position: fixed;
-  left: -10%;
-  top: 25%;
-  transform: scale(0.25);
-}
-
-.handgun {
-  position: fixed;
-  left: -2%;
-  top: 27%;
-  transform: scale(0.25);
-}
-
-.shotgun {
-  position: fixed;
-  left: -10%;
-  top: 27%;
-  transform: scale(0.25);
-}
-
-.rifle {
-  position: fixed;
-  left: -10%;
-  top: 27%;
-  transform: scale(0.25);
-}
-
-.knifeAttack {
-  position: fixed;
-  left: 15%;
-  top: 100%;
-  transform: scale(0.25);
-}
-
-.flashlightMove {
-  position: fixed;
-  left: -10%;
-  top: 25%;
-  transform: scale(0.25);
-}
-
-.flashlightAttack {
-  position: fixed;
-  left: 65%;
-  top: 100%;
-  transform: scale(0.25);
-}
-
-.player {
-  width: 256px;
-  height: 256px;
-  position: absolute;
-  /* border: 2px solid black; */
-  transform-origin: top left;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
