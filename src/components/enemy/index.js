@@ -9,24 +9,24 @@ class Enemy extends React.Component {
         return (
             <div>
                 {Object.keys(this.props.enemies).map(enemyId => {
-                    if (this.props.enemies[enemyId] > -1) {
+                    if (this.props.enemies[enemyId].a > -1) {
                         return (
                             <div
                                 key={enemyId}
                                 style={{
                                     position: 'fixed',
-                                    left: `${this.props.x[enemyId]}px`,
-                                    top: `${this.props.y[enemyId]}px`,
+                                    left: `${this.props.enemies[enemyId].x}px`,
+                                    top: `${this.props.enemies[enemyId].y}px`,
                                     width: `256px`,
                                     height: `256px`,
                                     transformOrigin: 'top left',
                                     transform: `rotate(${
-                                        this.props.r[enemyId]
+                                        this.props.enemies[enemyId].r
                                     }deg) scale(1) translate(-50%, -50%)`
                                 }}
                             >
                                 <EnemySprite
-                                    currentAnim={this.props.enemies[enemyId]}
+                                    currentAnim={this.props.enemies[enemyId].a}
                                     id={enemyId}
                                 />
                             </div>
@@ -56,23 +56,25 @@ class Enemy extends React.Component {
                 }
             }
 
-            // if (this.props.enemies.length > 0) {
-            //     const randomId = Math.floor(
-            //         Math.random() * (this.props.enemies.length - 1)
-            //     );
-            //     const playerPosition = store.getState().player.position;
-            //     store.dispatch(
-            //         moveEnemy(
-            //             randomId,
-            //             [this.props.x[randomId].x, this.props.y[randomId].y],
-            //             playerPosition,
-            //             deltaTime,
-            //             1
-            //         )
-            //     );
+            const size = Object.keys(this.props.enemies).length;
+            if (size > 0) {
+                const randomId = Math.floor(Math.random() * (size - 1));
+                const playerPosition = store.getState().player.position;
+                store.dispatch(
+                    moveEnemy(
+                        randomId,
+                        [
+                            this.props.enemies[randomId].x,
+                            this.props.enemies[randomId].y
+                        ],
+                        playerPosition,
+                        deltaTime,
+                        1
+                    )
+                );
 
-            //     console.log(this.props.x[0], this.props.y[0]);
-            // }
+                //     console.log(this.props.x[0], this.props.y[0]);
+            }
         });
     }
 

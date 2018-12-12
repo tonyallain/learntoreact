@@ -42,16 +42,18 @@ export function addEnemy(oldState) {
     const newSpawnLoc = spawnPosition();
     const randomFacing = Math.random() * 360;
 
-    const newEnemies = { ...oldState.enemies, [newId]: enemyAnimStates.IDLE };
-    const newX = { ...oldState.x, [newId]: newSpawnLoc.x };
-    const newY = { ...oldState.y, [newId]: newSpawnLoc.y };
-    const newR = { ...oldState.r, [newId]: randomFacing };
+    const newEnemies = {
+        ...oldState.enemies,
+        [newId]: {
+            a: enemyAnimStates.IDLE,
+            x: newSpawnLoc.x,
+            y: newSpawnLoc.y,
+            r: randomFacing
+        }
+    };
 
     return {
-        enemies: newEnemies,
-        x: newX,
-        y: newY,
-        r: newR
+        enemies: newEnemies
     };
 }
 
