@@ -1,5 +1,6 @@
 import React from 'react';
 import Player from './player';
+import Enemy from './enemy';
 import PreloadedAssets from './preload';
 
 const Canvas = () => {
@@ -7,6 +8,7 @@ const Canvas = () => {
         <div className="canvas">
             <PreloadedAssets />
             <Player />
+            <Enemy />
         </div>
     );
 };

@@ -13,9 +13,11 @@ class MuzzleFlash extends React.Component {
                     position: 'fixed',
                     left: `${this.props.x}%`,
                     top: `${this.props.y}%`,
-                    transform: `scale(${this.props.scale}) translate(50%, 0%)`
+                    transform: `scale(${this.props.scale}) translate(50%, 0%)`,
+                    opacity: 0.5
                 }}
                 hidden={this.props.hidden}
+                alt=""
             />
         );
     }
@@ -28,12 +30,10 @@ class MuzzleFlash extends React.Component {
             if (!this.props.hidden) {
                 this.timer += deltaTime;
                 if (this.timer > 50) {
-                    // we want to signal that it needs to turn off
                     store.dispatch(flashMuzzle(0, true));
                     this.timer = 0;
                 }
             }
-            // console.log('flash');
         });
     }
 
