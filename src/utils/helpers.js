@@ -1,10 +1,12 @@
+import { angle } from './vector';
+
 const enemyAnimStates = {
     DEAD: -1,
     IDLE: 0,
     MOVE: 1,
     ATTACK: 2
 };
-const edgeBuffer = -100;
+const edgeBuffer = -100; // revert back to 100
 
 export function getVariance(from, amount) {
     const randomSpeed = Math.random() * amount;
@@ -36,17 +38,14 @@ export function spawnPosition() {
 }
 
 export function addEnemy(oldState) {
-    const newEnemies = [...oldState.enemies];
-    const newX = [...oldState.x];
-    const newY = [...oldState.y];
-    const newR = [...oldState.r];
+    const newId = Object.keys(oldState.enemies).length;
     const newSpawnLoc = spawnPosition();
     const randomFacing = Math.random() * 360;
 
-    newEnemies.push(enemyAnimStates.IDLE);
-    newX.push(newSpawnLoc.x);
-    newY.push(newSpawnLoc.y);
-    newR.push(randomFacing);
+    const newEnemies = { ...oldState.enemies, [newId]: enemyAnimStates.IDLE };
+    const newX = { ...oldState.x, [newId]: newSpawnLoc.x };
+    const newY = { ...oldState.y, [newId]: newSpawnLoc.y };
+    const newR = { ...oldState.r, [newId]: randomFacing };
 
     return {
         enemies: newEnemies,
@@ -54,4 +53,14 @@ export function addEnemy(oldState) {
         y: newY,
         r: newR
     };
+}
+
+export function enemyStep(source, dest, deltaTime, speed) {
+    const dx = dest[0] - source[0];
+    const dy = dest[1] - source[1];
+    const left = source[0] + (dx * deltaTime) / 1000 / speed;
+    const top = source[1] + (dy * deltaTime) / 1000 / speed;
+    const angleBetween = angle(source, dest);
+
+    return [left, top, angleBetween];
 }
