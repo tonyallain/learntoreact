@@ -51,11 +51,13 @@ class EnemySprite extends React.Component {
                 (1000 / ENEMY_CONFIGS[this.props.currentAnim].fps) *
                     this.state.fpsMod
             ) {
-                const nextFrame = getNextFrame({
-                    ...ENEMY_CONFIGS[this.props.currentAnim],
-                    currentFrame: this.state.currentFrame
+                this.setState((prevState, props) => {
+                    const nextFrame = getNextFrame({
+                        ...ENEMY_CONFIGS[props.currentAnim],
+                        currentFrame: prevState.currentFrame
+                    });
+                    return { ...prevState, ...nextFrame };
                 });
-                this.setState({ ...this.state, ...nextFrame });
                 this.timer = 0;
             }
         });
