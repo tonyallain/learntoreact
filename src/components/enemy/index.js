@@ -26,7 +26,8 @@ class Enemy extends React.Component {
                                 }}
                             >
                                 <EnemySprite
-                                    {...this.props.animProps[enemyId]}
+                                    currentAnim={enemyState}
+                                    id={enemyId}
                                 />
                             </div>
                         );
@@ -48,7 +49,7 @@ class Enemy extends React.Component {
             this.timer += deltaTime;
             if (this.timer > 1000) {
                 this.timer = 0;
-                if (this.max < 5) {
+                if (this.max < 15) {
                     store.dispatch(spawnEnemy(this.props));
                     this.max++;
                 }

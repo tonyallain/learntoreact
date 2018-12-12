@@ -1,5 +1,3 @@
-import ENEMY_CONFIGS from '../config/enemy-configs';
-
 const enemyAnimStates = {
     DEAD: -1,
     IDLE: 0,
@@ -42,7 +40,6 @@ export function addEnemy(oldState) {
     const newX = [...oldState.x];
     const newY = [...oldState.y];
     const newR = [...oldState.r];
-    const newAnimProps = [...oldState.animProps];
     const newSpawnLoc = spawnPosition();
     const randomFacing = Math.random() * 360;
 
@@ -50,13 +47,11 @@ export function addEnemy(oldState) {
     newX.push(newSpawnLoc.x);
     newY.push(newSpawnLoc.y);
     newR.push(randomFacing);
-    newAnimProps.push({ ...ENEMY_CONFIGS[enemyAnimStates.IDLE] });
 
     return {
         enemies: newEnemies,
         x: newX,
         y: newY,
-        r: newR,
-        animProps: newAnimProps
+        r: newR
     };
 }

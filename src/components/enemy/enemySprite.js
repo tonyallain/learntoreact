@@ -1,8 +1,20 @@
 import React from 'react';
 import store from '../../store';
-import { animateEnemy } from '../../actions/enemy-actions';
+import { getNextFrame } from '../../utils/animator';
+import ENEMY_CONFIGS from '../../config/enemy-configs';
 
 class EnemySprite extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            currentWidth: 0,
+            currentHeight: 0,
+            currentFrame: 0,
+            fpsMod: Math.max(Math.random(), 0.65)
+        };
+    }
+
     render() {
         return (
             <div
@@ -10,13 +22,19 @@ class EnemySprite extends React.Component {
                     position: 'absolute',
                     left: '50%',
                     top: '50%',
-                    width: `${this.props.widthFrame}px`,
-                    height: `${this.props.heightFrame}px`,
+                    width: `${
+                        ENEMY_CONFIGS[this.props.currentAnim].widthFrame
+                    }px`,
+                    height: `${
+                        ENEMY_CONFIGS[this.props.currentAnim].heightFrame
+                    }px`,
                     transform: `translate(-50%, -50%)`,
                     backgroundRepeat: 'no-repeat',
-                    backgroundImage: `url('${this.props.image}')`,
-                    backgroundPosition: `-${this.props.currentWidth}px -${
-                        this.props.currentHeight
+                    backgroundImage: `url('${
+                        ENEMY_CONFIGS[this.props.currentAnim].image
+                    }')`,
+                    backgroundPosition: `-${this.state.currentWidth}px -${
+                        this.state.currentHeight
                     }px`
                 }}
             />
@@ -26,13 +44,18 @@ class EnemySprite extends React.Component {
     componentDidMount() {
         const update = store.getState().game.update;
         this.timer = 0;
-        this.currentWidth = 0;
-        this.currentHeight = 0;
-        this.currentFrame = 0;
         this.subId = update.subscribe(deltaTime => {
             this.timer += deltaTime;
-            if (this.timer > 1000 / this.props.fps) {
-                store.dispatch(animateEnemy(this.props));
+            if (
+                this.timer >
+                (1000 / ENEMY_CONFIGS[this.props.currentAnim].fps) *
+                    this.state.fpsMod
+            ) {
+                const nextFrame = getNextFrame({
+                    ...ENEMY_CONFIGS[this.props.currentAnim],
+                    currentFrame: this.state.currentFrame
+                });
+                this.setState({ ...this.state, ...nextFrame });
                 this.timer = 0;
             }
         });

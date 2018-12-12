@@ -5,7 +5,7 @@ import PreloadedAssets from './preload';
 
 const Canvas = () => {
     return (
-        <div className="canvas">
+        <div className='canvas'>
             <PreloadedAssets />
             <Player />
             <Enemy />
