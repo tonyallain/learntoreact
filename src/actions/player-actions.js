@@ -15,7 +15,8 @@ export const actionTypes = {
     TRIGGER_ANIMATION_BOTTOM: 'trigger-animation-bottom',
     TRIGGER_ANIMATION_TOP: 'trigger-animation-top',
     SHOOT: 'shoot',
-    PLAYER_TAKE_DAMAGE: 'player-take-damage'
+    PLAYER_TAKE_DAMAGE: 'player-take-damage',
+    PLAYER_HEAL: 'player-heal'
 };
 
 export const setFacing = (A, B) => {
@@ -113,5 +114,12 @@ export const takeDamage = amount => {
     return {
         type: actionTypes.PLAYER_TAKE_DAMAGE,
         payload: amount
+    };
+};
+
+export const regenerate = () => {
+    return {
+        type: actionTypes.PLAYER_HEAL,
+        payload: { wasHit: 0 }
     };
 };

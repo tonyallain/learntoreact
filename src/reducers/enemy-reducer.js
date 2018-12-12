@@ -23,6 +23,17 @@ const enemyReducer = (state = initialState, action) => {
                 ...state,
                 enemies: { ...state.enemies, ...action.payload }
             };
+        case actionTypes.ENEMY_TURN_FILTER_OFF:
+            return {
+                ...state,
+                enemies: {
+                    ...state.enemies,
+                    [action.payload]: {
+                        ...state.enemies[action.payload],
+                        wasHit: 0
+                    }
+                }
+            };
         default:
             return state;
     }

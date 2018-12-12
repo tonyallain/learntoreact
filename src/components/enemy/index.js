@@ -38,6 +38,7 @@ class Enemy extends React.Component {
                             <EnemySprite
                                 currentAnim={this.props.enemies[enemyId].a}
                                 id={enemyId}
+                                wasHit={this.props.enemies[enemyId].wasHit}
                             />
                         </div>
                     );

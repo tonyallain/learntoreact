@@ -11,7 +11,8 @@ export const actionTypes = {
     ENEMY_DIE: 'enemy-die',
     ENEMY_SPAWN: 'enemy-spawn',
     ENEMY_MOVE: 'enemy-move',
-    ENEMY_DAMAGED: 'enemy-damaged'
+    ENEMY_DAMAGED: 'enemy-damaged',
+    ENEMY_TURN_FILTER_OFF: 'enemy-filter-off'
 };
 
 export const animateEnemy = animProps => {
@@ -101,9 +102,9 @@ export const takeDamage = (id, enemyProps) => {
 
     let newProps = { ...enemyProps };
     if (delta <= maxRange) {
-        newProps = { ...enemyProps, hp: enemyProps.hp - amount };
+        newProps = { ...enemyProps, hp: enemyProps.hp - amount, wasHit: 100 };
 
-        if (enemyProps.hp - amount < 0) {
+        if (enemyProps.hp - amount <= 0) {
             return enemyDie(id, enemyProps);
         } else {
             return {
@@ -117,4 +118,11 @@ export const takeDamage = (id, enemyProps) => {
             payload: { [id]: newProps }
         };
     }
+};
+
+export const turnOffFilter = id => {
+    return {
+        type: actionTypes.ENEMY_TURN_FILTER_OFF,
+        payload: id
+    };
 };

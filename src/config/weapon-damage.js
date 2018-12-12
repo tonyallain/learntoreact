@@ -8,34 +8,34 @@ import {
 
 export const DAMAGE_TABLE = {
     LEFT: {
-        [WEAPON_FLASHLIGHT]: 10,
-        [WEAPON_KNIFE]: 10,
-        [WEAPON_HANDGUN]: 3,
-        [WEAPON_SHOTGUN]: 9,
-        [WEAPON_RIFLE]: 6
+        [WEAPON_FLASHLIGHT]: 99,
+        [WEAPON_KNIFE]: 49,
+        [WEAPON_HANDGUN]: 6,
+        [WEAPON_SHOTGUN]: 18,
+        [WEAPON_RIFLE]: 12
     },
     RIGHT: {
         [WEAPON_HANDGUN]: 1,
         [WEAPON_SHOTGUN]: 2,
         [WEAPON_RIFLE]: 3,
-        [WEAPON_FLASHLIGHT]: 10,
-        [WEAPON_KNIFE]: 10
+        [WEAPON_FLASHLIGHT]: 99,
+        [WEAPON_KNIFE]: 49
     }
 };
 
 export const RANGE_TABLE = {
     LEFT: {
-        [WEAPON_FLASHLIGHT]: 25,
-        [WEAPON_KNIFE]: 25,
-        [WEAPON_HANDGUN]: 700,
-        [WEAPON_SHOTGUN]: 400,
+        [WEAPON_FLASHLIGHT]: 150,
+        [WEAPON_KNIFE]: 150,
+        [WEAPON_HANDGUN]: 800,
+        [WEAPON_SHOTGUN]: 600,
         [WEAPON_RIFLE]: 1000
     },
     RIGHT: {
-        [WEAPON_HANDGUN]: 25,
-        [WEAPON_SHOTGUN]: 25,
-        [WEAPON_RIFLE]: 25,
-        [WEAPON_FLASHLIGHT]: 25,
-        [WEAPON_KNIFE]: 25
+        [WEAPON_HANDGUN]: 150,
+        [WEAPON_SHOTGUN]: 150,
+        [WEAPON_RIFLE]: 150,
+        [WEAPON_FLASHLIGHT]: 150,
+        [WEAPON_KNIFE]: 150
     }
 };

@@ -59,7 +59,8 @@ export function addEnemy(oldState) {
             y: newSpawnLoc.y,
             r: randomFacing,
             hp: 100,
-            speed: newSpeed
+            speed: newSpeed,
+            wasHit: 100
         }
     };
 

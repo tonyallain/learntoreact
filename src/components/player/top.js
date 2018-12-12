@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import store from '../../store';
-import { animateTop } from '../../actions/player-actions';
+import { animateTop, regenerate } from '../../actions/player-actions';
 import MuzzleFlash from '../fx/muzzle_flash';
 
 class Top extends React.Component {
@@ -20,7 +20,8 @@ class Top extends React.Component {
                         backgroundImage: `url('${this.props.image}')`,
                         backgroundPosition: `-${this.props.currentWidth}px -${
                             this.props.currentHeight
-                        }px`
+                        }px`,
+                        filter: `invert(${this.props.wasHit}%)`
                     }}
                 />
                 <MuzzleFlash />
@@ -33,6 +34,18 @@ class Top extends React.Component {
         const storeState = store.getState();
         const update = storeState.game.update;
         this.timer = 0;
+        this.regenTimer = 0;
+
+        this.regenId = update.subscribe(deltaTime => {
+            if (this.props.wasHit > 0) {
+                this.regenTimer += deltaTime;
+
+                if (this.regenTimer > 50) {
+                    this.regenTimer = 0;
+                    store.dispatch(regenerate());
+                }
+            }
+        });
 
         // we also want to sub my animation
         this.animId = update.subscribe(deltaTime => {
@@ -52,6 +65,7 @@ class Top extends React.Component {
         const update = storeState.game.update;
 
         update.unsubscribe(this.animId);
+        update.unsubscribe(this.regenId);
     }
 }
 

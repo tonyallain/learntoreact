@@ -21,8 +21,10 @@ const playerReducer = (state = initialState, action) => {
         case actionTypes.SWAP_WEAPON:
             return { ...state, ...action.payload };
         case actionTypes.PLAYER_TAKE_DAMAGE:
-            console.log(`${state.hp} -> ${state.hp - action.payload}`);
-            return { ...state, hp: state.hp - action.payload };
+            return {
+                ...state,
+                hp: state.hp - action.payload
+            };
         default:
             return state;
     }

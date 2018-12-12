@@ -27,5 +27,13 @@
         "not dead",
         "not ie <= 11",
         "not op_mini all"
+    ],
+    "author": {
+        "name": "Tony Allain",
+        "email": "tallain@blizzard.com",
+        "url": "https://ghosthub.corp.blizzard.net/tallain"
+    },
+    "contributors": [
+        "Art assets created by Riley Gombart (https://opengameart.org)"
     ]
 }

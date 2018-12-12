@@ -3,6 +3,7 @@ import store from '../../store';
 import { getNextFrame } from '../../utils/animator';
 import ENEMY_CONFIGS from '../../config/enemy-configs';
 import { takeDamage } from '../../actions/player-actions';
+import { turnOffFilter } from '../../actions/enemy-actions';
 
 class EnemySprite extends React.Component {
     constructor(props) {
@@ -37,7 +38,8 @@ class EnemySprite extends React.Component {
                         }')`,
                         backgroundPosition: `-${this.state.currentWidth}px -${
                             this.state.currentHeight
-                        }px`
+                        }px`,
+                        filter: `invert(${this.props.wasHit}%)`
                     }}
                 />
             );
@@ -53,7 +55,16 @@ class EnemySprite extends React.Component {
     componentDidMount() {
         const update = store.getState().game.update;
         this.timer = 0;
+        this.filterTimer = 0;
         this.subId = update.subscribe(deltaTime => {
+            if (this.props.wasHit > 0) {
+                this.filterTimer += deltaTime;
+                if (this.filterTimer > 75) {
+                    this.filterTimer = 0;
+                    store.dispatch(turnOffFilter(this.props.id));
+                }
+            }
+
             this.timer += deltaTime;
             if (
                 this.timer >
