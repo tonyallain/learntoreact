@@ -115,7 +115,6 @@ class Player extends React.Component {
                                 flashMuzzle(this.props.currentWeapon, false)
                             );
                         }
-
                         break;
                     case MOUSE_RIGHT:
                         store.dispatch(

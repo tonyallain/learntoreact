@@ -16,3 +16,5 @@ export const WEAPON_KNIFE = 1;
 export const WEAPON_HANDGUN = 2;
 export const WEAPON_SHOTGUN = 3;
 export const WEAPON_RIFLE = 4;
+export const ENEMY_MIN_RANGE = 100;
+export const ENEMY_SPEED = 80;

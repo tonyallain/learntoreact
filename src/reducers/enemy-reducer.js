@@ -3,23 +3,26 @@ import { actionTypes } from '../actions/enemy-actions';
 const initialState = {
     enemies: {}
 };
-// arrays aren't guaranteed order in state
 
 const enemyReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.ENEMY_MOVE:
-            const enemyObject = {
-                [action.payload.id]: {
-                    a: state.enemies[action.payload.id].a,
-                    x: action.payload.x,
-                    y: action.payload.y,
-                    r: action.payload.r
-                }
+            return {
+                ...state,
+                enemies: { ...state.enemies, ...action.payload }
             };
-
-            return { ...state, ...enemyObject };
         case actionTypes.ENEMY_SPAWN:
             return { ...state, ...action.payload };
+        case actionTypes.ENEMY_DAMAGED:
+            return {
+                ...state,
+                enemies: { ...state.enemies, ...action.payload }
+            };
+        case actionTypes.ENEMY_DIE:
+            return {
+                ...state,
+                enemies: { ...state.enemies, ...action.payload }
+            };
         default:
             return state;
     }

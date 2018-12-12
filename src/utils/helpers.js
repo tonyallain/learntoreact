@@ -1,12 +1,13 @@
-import { angle } from './vector';
+import { angle, distance } from './vector';
+import { ENEMY_MIN_RANGE, ENEMY_SPEED } from '../utils/constants';
 
-const enemyAnimStates = {
+export const enemyAnimStates = {
     DEAD: -1,
     IDLE: 0,
     MOVE: 1,
     ATTACK: 2
 };
-const edgeBuffer = -100; // revert back to 100
+const edgeBuffer = 100;
 
 export function getVariance(from, amount) {
     const randomSpeed = Math.random() * amount;
@@ -37,18 +38,28 @@ export function spawnPosition() {
     return { x, y };
 }
 
+export function resetEnemy() {
+    const newSpawnLoc = spawnPosition();
+    const newSpeed = Math.max(Math.random() * ENEMY_SPEED, ENEMY_SPEED / 4);
+
+    return { position: newSpawnLoc, speed: newSpeed };
+}
+
 export function addEnemy(oldState) {
     const newId = Object.keys(oldState.enemies).length;
     const newSpawnLoc = spawnPosition();
     const randomFacing = Math.random() * 360;
+    const newSpeed = Math.max(Math.random() * ENEMY_SPEED, ENEMY_SPEED / 4);
 
     const newEnemies = {
         ...oldState.enemies,
         [newId]: {
-            a: enemyAnimStates.IDLE,
+            a: enemyAnimStates.MOVE,
             x: newSpawnLoc.x,
             y: newSpawnLoc.y,
-            r: randomFacing
+            r: randomFacing,
+            hp: 100,
+            speed: newSpeed
         }
     };
 
@@ -58,11 +69,18 @@ export function addEnemy(oldState) {
 }
 
 export function enemyStep(source, dest, deltaTime, speed) {
+    const delta = distance(source, dest);
     const dx = dest[0] - source[0];
     const dy = dest[1] - source[1];
-    const left = source[0] + (dx * deltaTime) / 1000 / speed;
-    const top = source[1] + (dy * deltaTime) / 1000 / speed;
+    const factor = Math.sqrt(dx * dx + dy * dy);
+
+    const left = source[0] + ((dx / factor) * speed) / deltaTime;
+    const top = source[1] + ((dy / factor) * speed) / deltaTime;
     const angleBetween = angle(source, dest);
 
-    return [left, top, angleBetween];
+    if (delta <= ENEMY_MIN_RANGE) {
+        return [source[0], source[1], angleBetween, true];
+    } else {
+        return [left, top, angleBetween, false];
+    }
 }

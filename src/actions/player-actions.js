@@ -14,7 +14,8 @@ export const actionTypes = {
     ANIMATE_TOP: 'animate-top',
     TRIGGER_ANIMATION_BOTTOM: 'trigger-animation-bottom',
     TRIGGER_ANIMATION_TOP: 'trigger-animation-top',
-    SHOOT: 'shoot'
+    SHOOT: 'shoot',
+    PLAYER_TAKE_DAMAGE: 'player-take-damage'
 };
 
 export const setFacing = (A, B) => {
@@ -105,5 +106,12 @@ export const flashMuzzle = (forWeapon, off) => {
     return {
         type: actionTypes.SHOOT,
         payload: { hidden: off, ...settings }
+    };
+};
+
+export const takeDamage = amount => {
+    return {
+        type: actionTypes.PLAYER_TAKE_DAMAGE,
+        payload: amount
     };
 };
