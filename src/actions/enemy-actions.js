@@ -4,6 +4,7 @@ import { distance } from '../utils/vector';
 import store from '../store';
 import { DAMAGE_TABLE, RANGE_TABLE } from '../config/weapon-damage';
 import { enemyAnimStates, resetEnemy } from '../utils/helpers';
+import { addKill } from '../actions/player-actions';
 
 export const actionTypes = {
     ENEMY_ANIMATE: 'enemy-animate',
@@ -40,6 +41,9 @@ export const spawnEnemy = enemyProps => {
 
 export const enemyDie = (id, enemyProps) => {
     const resetValues = resetEnemy();
+
+    // bad practice, but desperate
+    store.dispatch(addKill());
 
     return {
         type: actionTypes.ENEMY_DIE,

@@ -16,13 +16,21 @@ export const actionTypes = {
     TRIGGER_ANIMATION_TOP: 'trigger-animation-top',
     SHOOT: 'shoot',
     PLAYER_TAKE_DAMAGE: 'player-take-damage',
-    PLAYER_HEAL: 'player-heal'
+    PLAYER_HEAL: 'player-heal',
+    PLAYER_KILLED_ZOMBIE: 'player-killed-zombie'
 };
 
 export const setFacing = (A, B) => {
     return {
         type: actionTypes.ROTATE,
         payload: { rotation: angle(A, B) }
+    };
+};
+
+export const addKill = () => {
+    return {
+        type: actionTypes.PLAYER_KILLED_ZOMBIE,
+        payload: 1
     };
 };
 

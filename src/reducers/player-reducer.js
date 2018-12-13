@@ -9,7 +9,8 @@ const initialState = {
     strafeDirection: 0,
     scale: 1,
     currentWeapon: STARTING_WEAPON,
-    hp: 100
+    hp: 100,
+    kills: 0
 };
 
 const playerReducer = (state = initialState, action) => {
@@ -23,7 +24,12 @@ const playerReducer = (state = initialState, action) => {
         case actionTypes.PLAYER_TAKE_DAMAGE:
             return {
                 ...state,
-                hp: state.hp - action.payload
+                hp: Math.max(state.hp - action.payload, 0)
+            };
+        case actionTypes.PLAYER_KILLED_ZOMBIE:
+            return {
+                ...state,
+                kills: state.kills + action.payload
             };
         default:
             return state;

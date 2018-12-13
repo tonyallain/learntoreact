@@ -34,22 +34,48 @@ import Bottom from './bottom';
 class Player extends React.Component {
     render() {
         return (
-            <div
-                style={{
-                    position: 'fixed',
-                    left: `${this.props.position[0]}px`,
-                    top: `${this.props.position[1]}px`,
-                    width: `${this.props.size}px`,
-                    height: `${this.props.size}px`,
-                    // border: '2px solid black',
-                    transformOrigin: 'top left',
-                    transform: `rotate(${this.props.rotation}deg) scale(${
-                        this.props.scale
-                    }) translate(-50%, -50%)`
-                }}
-            >
-                <Bottom />
-                <Top />
+            <div>
+                <div
+                    style={{
+                        position: 'absolute',
+                        left: 0,
+                        top: 0,
+                        width: '100%',
+                        height: '10%',
+                        fontSize: 40,
+                        color: 'white'
+                    }}
+                >
+                    <div>Hackathon 2018</div>
+                    <div>"404 Game" made in React-Redux</div>
+                    <div>Created by: Tony Allain</div>
+                    <div style={{ fontSize: 25, color: 'white' }}>
+                        Art: Riley Gombart (https://opengameart.org)
+                    </div>
+                    <br />
+                    <div style={{ color: 'red' }}>
+                        Health: {Math.floor(this.props.hp)}
+                        <br />
+                        Kills: {this.props.kills}
+                    </div>
+                </div>
+                <div
+                    style={{
+                        position: 'fixed',
+                        left: `${this.props.position[0]}px`,
+                        top: `${this.props.position[1]}px`,
+                        width: `${this.props.size}px`,
+                        height: `${this.props.size}px`,
+                        // border: '2px solid black',
+                        transformOrigin: 'top left',
+                        transform: `rotate(${this.props.rotation}deg) scale(${
+                            this.props.scale
+                        }) translate(-50%, -50%)`
+                    }}
+                >
+                    <Bottom />
+                    <Top />
+                </div>
             </div>
         );
     }
@@ -143,10 +169,10 @@ class Player extends React.Component {
             if (input.isDown('s')) {
                 y += moveAmount;
             }
-            if (input.isDown('q')) {
+            if (input.isDown('q') || input.isDown('a')) {
                 x -= moveAmount;
             }
-            if (input.isDown('e')) {
+            if (input.isDown('e') || input.isDown('d')) {
                 x += moveAmount;
             }
 
