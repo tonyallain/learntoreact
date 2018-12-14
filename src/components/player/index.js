@@ -32,6 +32,23 @@ import Top from './top';
 import Bottom from './bottom';
 
 class Player extends React.Component {
+    everyoneWins() {
+        if (this.props.hp <= 0) {
+            return (
+                <div
+                    style={{
+                        fontSize: 15
+                    }}
+                >
+                    Everyone's a winner in 2018!
+                    <br />
+                </div>
+            );
+        } else {
+            return <br />;
+        }
+    }
+
     render() {
         return (
             <div>
@@ -55,7 +72,7 @@ class Player extends React.Component {
                     <br />
                     <div style={{ color: 'red' }}>
                         Health: {Math.floor(this.props.hp)}
-                        <br />
+                        {this.everyoneWins()}
                         Kills: {this.props.kills}
                     </div>
                 </div>
