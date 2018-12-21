@@ -21,7 +21,7 @@ class Enemy extends React.Component {
                                 transformOrigin: 'top left',
                                 transform: `rotate(${
                                     this.props.enemies[enemyId].r
-                                }deg) scale(1) translate(-50%, -50%)`
+                                }deg) scale(0.5) translate(-50%, -50%)`
                             }}
                             onClick={() => {
                                 console.log(
